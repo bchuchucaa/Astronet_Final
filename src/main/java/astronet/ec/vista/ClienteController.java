@@ -1868,26 +1868,7 @@ public class ClienteController implements Serializable {
 
 	}
 
-	public void newTelefono() {
 
-		if (nuevoTipoTelefono != null && nuevoNumero != null) {
-			try {
-				System.out.println("this is new ID FOR TEL -> " + telOn.getMaxId() + 1);
-				nuevoTelefono = new Telefono(telOn.getMaxId() + 1, nuevoNumero, nuevoTipoTelefono,
-						clion.getClienteCedula(cliente.getCedula()));
-				telefonos.add(nuevoTelefono);
-				telOn.createTelefono(nuevoTelefono);
-
-				FacesContext.getCurrentInstance().addMessage(null,
-						new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Telefono Agregado Correctamente"));
-
-			} catch (Exception e) {
-				FacesContext.getCurrentInstance().addMessage(null,
-						new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "No se pudo agregar el telefono"));
-
-			}
-		}
-	}
 
 	public void validarCorreo(FacesContext context, UIComponent componentToValidate, Object value)
 			throws ValidatorException {
@@ -1957,45 +1938,55 @@ public class ClienteController implements Serializable {
 	// Metod to autocomplete
 
 	public List<String> getSugerencias(String enteredValue) {
-		List<String> coincidencias = new ArrayList<String>();
-
-		System.out.println("NOMBRE BUSCADO");
-		System.out.println(enteredValue);
-		Cliente clie;
-
-		for (int i = 0; i < listadoCliente.size(); i++) {
-
-			clie = (Cliente) listadoCliente.get(i);
-			String nombre = clie.getNombre() + " " + clie.getApellidos() + "/" + clie.getCedula();
-			String apellido = clie.getApellidos();
-			String nombres = clie.getNombre();
-
-			try {
-				if (nombres.toLowerCase().startsWith(enteredValue.toLowerCase())
-						|| apellido.toLowerCase().startsWith(enteredValue.toLowerCase())) {
-					System.out.println("Ingresa");
-
-					coincidencias.add(nombre);
+		List<String> coincidencias= new ArrayList<String>();
+			System.out.println("NOMBRE BUSCADO");
+			System.out.println(enteredValue);
+			Cliente clie;
+			
+			for (int i = 0; i < listadoCliente.size(); i++) {
+				
+				clie = (Cliente)listadoCliente.get(i);
+				String nombre= clie.getApellidos()+"/"+clie.getNombre();
+				String apellido= clie.getApellidos();
+				String nombres= clie.getNombre();
+			
+				try {
+					if(	nombres.toLowerCase().startsWith(enteredValue.toLowerCase()) || apellido.toLowerCase().startsWith(enteredValue.toLowerCase())) {
+						System.out.println("Ingresa");
+						
+						coincidencias.add(nombre);
+					}
+					
+				}catch (Exception e) {
+					System.out.println("Exception "+ e);
 				}
+				
+				
 
-			} catch (Exception e) {
-				System.out.println("Exception " + e);
 			}
-
-		}
+			
+			
 
 		return coincidencias;
-
+		
+			
+		
 	}
-
 	public String findByNames() {
-		System.out.println("THIS IS THE IDENTIFICACION OF CLIENT " + inputName);
+		System.out.println("THIS IS THE IDENTIFICACION OF CLIENT "+ inputName);
 
 		try {
-			inputName = inputName.substring(inputName.lastIndexOf("/") + 1);
-
+			//String nombre=inputName.substring(inputName.lastIndexOf("/") + 1);
+			//String apellido=inputName.split('/');
+			String[] credenciales= inputName.split("/");
+			String nombres= credenciales[1];
+			String apellidos= credenciales[0];
+			System.out.println(nombres);
+			System.out.println(apellidos);
 			System.out.println(inputName);
-			cliente = clion.getClienteCedula(inputName);
+			//cliente = clion.getClienteCedula(inputName);
+			cliente= clion.buscarNombreApellido(nombres, apellidos);
+			System.out.println(cliente.getCedula());
 			setTelefonos(telOn.getTelefonos(cliente));
 			for (Telefono telefono : telefonos) {
 				System.out.println(telefono.getTipoTelefono());
@@ -2004,18 +1995,20 @@ public class ClienteController implements Serializable {
 			registro.setIdClienteTemp(cliente.getId());
 			cliente.setTelefonos(telefonos);
 			fechaHora();
-			// datoR();
+			//datoR();
 			setNuevoTelefono(null);
 			setNuevoTipoTelefono(null);
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "Credenciales Correctas"));
-		} catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "Credenciales Correctas"));
+
+
+			
+		}catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("NO HAY TEXTO ");
 		}
-
 		return null;
-	}
+		
+		}
 
 	public void newTelefono(Telefono telefono) {
 		System.out.println("Telefono de parametro " + telefono.getTelNumero());
@@ -2071,6 +2064,32 @@ public class ClienteController implements Serializable {
 		System.out.println("Se guardo correcto correctamente");
 	}
 
+	
+	
+	public void cargarDatosRegistro1(int codigo) {
+		try {
+			System.out.println("Llegando:::::111");
+			cliente.setId(registro.getCliente().getId());
+			registro.getCliente().setId(cliente.getId());
+			System.out.println("cliente id " + cliente.getId());
+		//	empleado.setId(registro.getEmpleado().getId());
+		//	registro.getEmpleado().setId(codigo);
+			System.out.println("imprime esto:   " + registro.getFechaHora());					
+			Cliente cli = clion.getCliente(registro.getCliente().getId());
+			Empleado em= empon.getEmpleado(codigo);
+			registro.setCliente(cli);
+			registro.setEmpleado(em);
+			regon.guardar(registro);
+
+//			Visita g = new Visita(cli, registro, empleado);
+//			visitaOn.guardar(g);
+			System.out.println("Se guardo correcto correctamente");
+			init();
+		
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
 	public List<Cliente> getFiltradoCliente() {
 		return filtradoCliente;
 	}

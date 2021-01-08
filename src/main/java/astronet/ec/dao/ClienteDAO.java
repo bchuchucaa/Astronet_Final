@@ -115,8 +115,7 @@ public class ClienteDAO {
 		Query q = em.createQuery(jpql, Cliente.class);
 		q.setParameter("cedula", cedula);
 		Cliente clien = (Cliente) q.getSingleResult();
-		clien.getCedula();
-		clien.getNombre();
+		System.out.println(clien.getApellidos() + "gabriel puta");
 		return clien;
 	}
 	
@@ -190,6 +189,14 @@ public class ClienteDAO {
 		
 	}
 	
+	public Cliente buscarNombreAellido(String nombre, String apellido) {
+		String jpql = "SELECT cli FROM Cliente cli WHERE cli.nombre = :nombre and cli.apellidos = :apellido";
+		Query q = em.createQuery(jpql, Cliente.class);
+		q.setParameter("nombre", nombre);
+		q.setParameter("apellido", apellido);
+		Cliente clien = (Cliente) q.getSingleResult();
+		return clien;
+	}
 	
 
 

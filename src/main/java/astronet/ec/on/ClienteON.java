@@ -84,6 +84,10 @@ public class ClienteON {
 		return clidao.getIpsCliente(cedula);
 		
 	}
+	
+	public Cliente buscarNombreApellido(String nombre,String apellido) {
+		return clidao.buscarNombreAellido(nombre, apellido);
+	}
     
   
 	

@@ -21,17 +21,26 @@
 	<link rel="stylesheet" href="resources/assets/css/table.css" />
 	<link rel="stylesheet" href="resources/assets/css/fondo.css" />
 
-	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-	<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 
 
 
 	<style>
 .columnacontacto {
 	width: 10px;
+}
+
+.columnacontacto {
+	width: 10px;
+}
+
+.dialogo {
+	
+}
+
+div.ui-dialog-content.ui-widget-content {
+	width: 500px;
 }
 </style>
 
@@ -194,12 +203,12 @@
 						<div class="form-group col-sm-3">
 							<div class="input-group marginBuscar">
 								<h:inputText id="textce" class="form-control"
-									value="#{callcenterBean.cedula}"
+									value="#{clienteController.cedula}"
 									a:placeholder="Cedula del Cliente" name="search" />
 								<div class="input-group-btn" id="txtCedula">
 									<h:commandButton render="Nombres"
 										class="btn btn-default botonBuscar"
-										action="#{callcenterBean.buscarCedula()}"
+										action="#{clienteController.buscarCedula()}"
 										image="/resources/assets/img/buscar.png" />
 								</div>
 							</div>
@@ -207,15 +216,19 @@
 
 						<div class="form-group col-sm-5">
 
+
+
+
+
 							<h:form>
         Enter Name:
         <p:autoComplete id="itemselected"
-									value="#{callcenterBean.inputName}" maxResults="10"
-									completeMethod="#{callcenterBean.getSugerencias}">
+									value="#{clienteController.inputName}" maxResults="10"
+									completeMethod="#{clienteController.getSugerencias}">
 
 								</p:autoComplete>
 								<h:commandButton value="BUSCAR"
-									onclick="#{callcenterBean.findByNames()}" />
+									onclick="#{clienteController.findByNames()}" />
 
 
 							</h:form>
@@ -244,7 +257,7 @@
 
 				<div id="main-container" class="cabecera">
 
-					<h:dataTable id="Nombres" value="#{callcenterBean.cliente}"
+					<h:dataTable id="Nombres" value="#{clienteController.cliente}"
 						var="cliente">
 
 						<h:column>
@@ -291,7 +304,7 @@
 
 										<span class="glyphicon glyphicon-earphone"></span>
 
-										<h:outputText value="#{t.tipoTelefono}" size="10" />
+										<h:outputText value="#{t.telNumero}" size="10" />
 
 									</h:column>
 
@@ -340,46 +353,46 @@
 						value="Actualizar" />
 				</div>
 				<div class="form-group col-sm-5">
-							<div class="input-group marginBuscar">
-								<h:inputText class="form-control"
-									value="#{clienteController.registro.fechaHora}"
-									a:placeholder="Fecha Hora" rendered="" />
+					<div class="input-group marginBuscar">
+						<h:inputText class="form-control"
+							value="#{clienteController.registro.fechaHora}"
+							a:placeholder="Fecha Hora" rendered="" />
 
-							</div>
+					</div>
 
-						</div>
+				</div>
 
-						<div class="form-group col-sm-5">
-							<div class="input-group marginBuscar">
-								<h:inputText class="form-control"
-									value="#{callcenterBean.registro.idClienteTemp}"
-									a:placeholder="clid" id="txtCliente1" rendered="">
-								</h:inputText>
-								<h:panelGroup id="datosPersona123">
-									<h:message for="txtCliente1" rendered="" />
-							#{callcenterBean.registro.cliente.nombre}
+				<div class="form-group col-sm-5">
+					<div class="input-group marginBuscar">
+						<h:inputText class="form-control"
+							value="#{clienteController.registro.idClienteTemp}"
+							a:placeholder="clid" id="txtCliente1" rendered="">
+						</h:inputText>
+						<h:panelGroup id="datosPersona123">
+							<h:message for="txtCliente1" rendered="" />
+							#{clienteController.registro.cliente.nombre}
 					</h:panelGroup>
-							</div>
-						</div>
-				
+					</div>
+				</div>
+
 
 				<div class="form-group col-sm-6">
 					  <label for="sel1" class="etiquetas">Problema:</label>     
 					<h:selectOneMenu class="form-control" id="sel1"
-						value="#{callcenterBean.registro.problema}">
+						value="#{clienteController.registro.problema}">
 						<f:ajax execute="txtCliente1"
-							listener="#{callcenterBean.consultarCliente()}"
+							listener="#{clienteController.consultarCliente()}"
 							render="datosPersona123" />
-						<f:selectItems value="#{callcenterBean.problemas1}" var="pro1"
+						<f:selectItems value="#{clienteController.problemas1}" var="pro1"
 							itemLabel="#{pro1.carLabel}" itemValue="#{pro1.carLabel}" />
 					</h:selectOneMenu>
 				</div>
 
 
-							<div class="form-group col-sm-6">
+				<div class="form-group col-sm-6">
 					  <label for="sel1" class="etiquetas">Acción:</label>     
 					<h:selectOneMenu class="form-control" id="selAc"
-						value="#{callcenterBean.registro.accion}">
+						value="#{clienteController.registro.accion}">
 						<f:selectItems value="#{clienteController.accion}" var="pro1"
 							itemLabel="#{pro1.carLabel}" itemValue="#{pro1.carLabel}" />
 					</h:selectOneMenu>
@@ -387,19 +400,11 @@
 				<div class="form-group cabecera">
 					<label for="exampleFormControlTextarea1">Observaciones</label>
 					<h:inputTextarea
-						value="#{callcenterBean.registro.observaciones}"
+						value="#{clienteController.registro.observaciones}"
 						class="form-control" id="exampleFormControlTextarea1" rows="5">
 					</h:inputTextarea>
 				</div>
 
-				<div class="btnsIngre_Agen">
-
-
-					<h:commandButton
-						action="#{callcenterBean.cargarDatosRegistro(empleadoControllerBean.idUser)}"
-						class="btn btn-primary btnIn" value="Ingresar" />
-
-				</div>
 
 			</div>
 
@@ -409,44 +414,81 @@
 
 	</h:form>
 
-	<p:dialog header="Editar telefonos" widgetVar="dlg1" minHeight="40">
+<div>
+<h:form>
+		<div class="btnsIngre_Agen">
+			<p:commandButton
+				action="#{clienteController.cargarDatosRegistro1(empleadoControllerBean.idUser)}"
+				class="btn btn-primary btnIn" value="Ingresar" />
+
+		</div>
+
+	</h:form>
+
+</div>
+	
+	<p:dialog header="Editar telefonos" widgetVar="dlg1" minHeight="40"
+		styleClass="dialogo">
 
 		<h:form id="form_pop1">
 
-			<h:dataTable id="tabla_pop" value="#{clienteController.telefonos}"
+			<p:dataTable id="tabla_pop" value="#{clienteController.telefonos}"
 				var="t" styleClass="table" headerClass="cabeceraTabla"
 				rowClasses="filaPar,filaImpar">
 
-				<h:column>
+				<p:column>
 					<f:facet name="header">NUMERO</f:facet>
 
 					<span class="glyphicon glyphicon-earphone"></span>
 
-					<h:inputText value="#{t.tipoTelefono}" size="10" />
+					<h:inputText value="#{t.telNumero}" size="10" />
 
-				</h:column>
-
-
-
-				<!-- BOTONES -->
-				<h:column>
-					<f:facet name="header">ACCION</f:facet>
-					<h:commandButton value="Editar"
-						onclick="#{telefonoController.editTelefono(t)}"
+				</p:column>
+				<p:column>
+					<p:commandButton value="Editar" update=":text:goku"
+						action="#{telefonoController.editTelefono(t.id,t.telNumero)}"
 						styleClass="btn btn-primary" />
-					<h:commandButton value="Eliminar" styleClass="btn btn-danger" />
+				</p:column>
+				<p:column>
+					<p:commandButton value="Eliminar" update=":text:goku"
+						action="#{telefonoController.deleteTelefono(t.id)}"
+						styleClass="btn btn-primary" />
+				</p:column>
 
-				</h:column>
 
+			</p:dataTable>
+			<h:commandButton value="Salir" render="text"
+				styleClass="btn btn-primary">
 
-			</h:dataTable>
+			</h:commandButton>
 		</h:form>
+		<h:form id="formnuevo">
+			<h3>Nuevo telefono</h3>
+			<h:outputText value="numero" />
+			<h:inputText value="#{telefonoController.nuevoNumero}" size="10" />
+			<h:outputText value="Tipo" />
 
 
+
+			<h:selectOneMenu value="#{telefonoController.nuevoTipoTelefono}">
+				<f:selectItem itemValue="MOVIL" itemLabel="MOVIL" />
+				<f:selectItem itemValue="CONVENCIONAL" itemLabel="CONVENCIONAL" />
+			</h:selectOneMenu>
+
+
+			<h:commandButton value="Guardar" render="text"
+				action="#{telefonoController.newTelefono()}"
+				styleClass="btn btn-primary">
+				<f:param name="action" value="#{clienteController.cliente.cedula}" />
+
+			</h:commandButton>
+		</h:form>
 	</p:dialog>
 	<h:form id="text">
 
+		<p:dataTable id="goku" value="#{clienteController.telefonos}" var="t">
 
+		</p:dataTable>
 	</h:form>
 </body>
 

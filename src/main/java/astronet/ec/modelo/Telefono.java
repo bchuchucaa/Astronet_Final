@@ -58,9 +58,9 @@ public class Telefono implements Serializable {
 		super();
 	}
 
-	public Telefono(int id, String tipoTelefono, String telNumero, Cliente cliente) {
+	public Telefono( String tipoTelefono, String telNumero, Cliente cliente) {
 		super();
-		this.id = id;
+		
 		this.tipoTelefono = tipoTelefono;
 		this.telNumero = telNumero;
 		this.cliente = cliente;

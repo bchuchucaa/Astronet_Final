@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -13,8 +14,13 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+
+import org.primefaces.PrimeFaces;
+import org.primefaces.context.RequestContext;
 
 import astronet.ec.dao.TelefonoDAO;
 import astronet.ec.modelo.Agendamiento;
@@ -41,16 +47,18 @@ public class TelefonoController implements Serializable {
 
 	// private static final long serialVersionUID = 8799656478674716638L;
 	private static final long serialVersionUID = 1L;
-	private Cliente cliente = new Cliente();
+	private Cliente cliente;
 
 	private List<Telefono> telefonos;
 	/**
 	 * Declaraacion de variables
 	 */
 	private String cedula;
-	private String nombre;
-	private Telefono telefonoNuevo;
-	private TelefonoON telOn;
+
+	private Telefono nuevoTelefono;
+	private String nuevoNumero;
+	private String nuevoTipoTelefono;
+	private String numeroActualizar;
 
 	/**
 	 * Fin de la declaracion
@@ -62,11 +70,11 @@ public class TelefonoController implements Serializable {
 	 * Inyeccion de las clases ON
 	 */
 	@Inject
-	private TelefonoON telon;
+	private TelefonoON telOn;
 	
 	@Inject
 	private ClienteON clion;
-
+	
 
 
 
@@ -80,29 +88,11 @@ public class TelefonoController implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		cliente = new Cliente();
-		telefonoNuevo= new Telefono();
 		telefonos = new ArrayList<Telefono>();
 
 	}
 
 
-
-
-
-
-
-
-	/*
-	 * Hasta aqui llega la creacion de los getters and setters
-	 */
-
-	/**
-	 * Metodo para dirigirnos a la pagina editarClientes
-	 * 
-	 * @param codigo
-	 * @return
-	 */
 
 	public String editar(int codigo) {
 
@@ -115,8 +105,11 @@ public class TelefonoController implements Serializable {
 	
 	
 
-	public Telefono getTelefonoNuevo() {
-		return telefonoNuevo;
+
+
+
+	public String getNuevoNumero() {
+		return nuevoNumero;
 	}
 
 
@@ -126,8 +119,8 @@ public class TelefonoController implements Serializable {
 
 
 
-	public void setTelefonoNuevo(Telefono telefonoNuevo) {
-		this.telefonoNuevo = telefonoNuevo;
+	public void setNuevoNumero(String nuevoNumero) {
+		this.nuevoNumero = nuevoNumero;
 	}
 
 
@@ -137,86 +130,143 @@ public class TelefonoController implements Serializable {
 
 
 
-	/**
-	 * Metodo para la creacion de los clientes
-	 * 
-	 * @return
-	 */
-	public String guardarCliente() {
-
-		try {
-			clion.guardarCliente(cliente);
-			// servicio.setIdClienteTemp(cliente.getId());
-			// seron.guardar(servicio);
-			init();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return null;
-	}
-
-	/**
-	 * Metodo para la busqueda de clientes para el registro
-	 * 
-	 * @return
-	 */
-	public Cliente buscarCedula(String cedula) {
-		try {
-			if (cedula!=null) {
-
-				cliente = clion.getClienteCedula(cedula);
-				
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "Credenciales Correctas"));
-
-			}
-		}catch (Exception e) {
-			// TODO: handle exception
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "Credenciales Incorrectas"));
-
-		}
-
-		return cliente;
-
-	}
 	
-	//Metodo para agregar nuevos telefonos del cleinte
-	public void agregarTelefono() {
-		System.out.println("PILAS PARA AGREGAR EL TELEFONO");
+
+
+	
+	
+	//Fin de getter y setters
+
+
+
+	public String getNumeroActualizar() {
+		return numeroActualizar;
 	}
-	/**
-	 * public List<Telefono> getTelefonos(){
-	 * System.out.println("Cliente a buscar "+ cedula);
-		telefonos=clion.
+
+
+
+	public void setNumeroActualizar(String numeroActualizar) {
+		this.numeroActualizar = numeroActualizar;
+	}
+
+
+
+	public String getCedula() {
+		return cedula;
+	}
+
+
+	public void setCedula(String cedula) {
+		this.cedula = cedula;
+	}
+
+
+
+	public Telefono getNuevoTelefono() {
+		return nuevoTelefono;
+	}
+
+
+
+	public void setNuevoTelefono(Telefono nuevoTelefono) {
+		this.nuevoTelefono = nuevoTelefono;
+	}
+
+
+
+	public String getNuevoTipoTelefono() {
+		return nuevoTipoTelefono;
+	}
+
+
+
+	public void setNuevoTipoTelefono(String nuevoTipoTelefono) {
+		this.nuevoTipoTelefono = nuevoTipoTelefono;
+	}
+
+	
+	
+
+
+	public List<Telefono> getTelefonos() {
 		return telefonos;
 	}
-	 */
+
+
+
+	public void setTelefonos(List<Telefono> telefonos) {
+		this.telefonos = telefonos;
+	}
+
 	
-public void deleteTelefono(int id) {
-		/**
-		 * try {
-				System.out.println("THIS IS ID ->"+ id);
-				teldao.delete(id);
-				System.out.println("Se elimino");
-				
-			}catch (Exception e) {
-				// TODO: handle exception
-			}
-		 */
+	
+	public void editTelefono(int id,String numero) {
+
+		try {
+			System.out.println("NUMERO ACTUALIZADO");
 			
+			System.out.println("TELEFONO A ACTUALIZAR : ID= -> "+ id);
+			System.out.println("TELEFONO A ACTUALIZAR : NUMERO ANTIGUO-> "+ numero);
 			
-				
-				
+			Telefono telActualizar=telOn.read(id);
+			telActualizar.setTelNumero(numero);
+			telOn.updateTelefono(telActualizar);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Se actualizo el telefono correctamente"));
 			
+		}catch(Exception e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "No se pudo actualizar el telefono"));
+
+		}
+		
+	
+	}
+
+	
+	
+	
+	public String newTelefono() {
+		try {
+	
+			Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+			String action = params.get("action");
 			
+			System.out.println("this is id as parameter "+action);
+			nuevoTelefono=new Telefono(nuevoNumero,nuevoTipoTelefono,clion.getClienteCedula(action));
+			
+			//System.out.println(nuevoTelefono.getCliente().getApellidos());
+			
+			System.out.println("valeverga gaviel");
+				telOn.guardar(nuevoTelefono);	
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Telefono Agregado Correctamente"));
+		
+		}catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "No se pudo agregar el telefono"));
+
+		}
+		
+	
+		return null;
+		}
+	
 	
 
+	public String deleteTelefono(int id) {
 		
+		try {
+			
+			telOn.delete(id);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Telefono Eliminado Correctamente"));
+
+			
+		}catch (Exception e) {
+			
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "No se pudo eliminar el telefono"));
+
+		}
+		return null;
+		
+	}
+	
 		
 		
 	}
-		
-
-
-}
