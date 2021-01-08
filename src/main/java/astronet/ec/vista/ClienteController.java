@@ -101,6 +101,11 @@ public class ClienteController implements Serializable {
 	private String apellidos;
 
 	private String ip;
+	
+	private String tipoServicio;
+	
+	
+
 	private String password;
 
 	private String serial;
@@ -270,19 +275,18 @@ public class ClienteController implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public String getTipoServicio() {
+		return tipoServicio;
+	}
+
+	public void setTipoServicio(String tipoServicio) {
+		this.tipoServicio = tipoServicio;
+	}
 
 	public EquipoServicio clienteip;
 
-	/**
-	 * Fin de la declaracion
-	 */
-
-	// @ManagedProperty(value = "#{login}")
-	// private EmpleadoController empCon;
-
-	/**
-	 * Inyeccion de las clases ON
-	 */
+	
 	@Inject
 	private ClienteON clion;
 
@@ -805,8 +809,8 @@ public class ClienteController implements Serializable {
 		return "editarClientes?faces-redirect=true&id=" + codigo;
 	}
 
-	public String editarRegistro(int codigo) {
-		return "agendamiento?faces-redirect=true&id=" + codigo;
+	public String editarRegistro(int codigo,int idUser) {
+		return "agendamiento?faces-redirect=true&id=" + codigo+"&idUser="+idUser;
 	}
 
 	public String editarRegistro1(int codigo) {
@@ -2142,4 +2146,43 @@ public class ClienteController implements Serializable {
 		this.filtradoCliente = filtradoCliente;
 
 	}
+	 public String returnIp(int id) {
+		
+		Cliente cli = new Cliente();
+		cli = clion.getCliente(id);
+
+		List<Telefono> telefonos2 = telOn.getTelefonos(cli);
+		for (Telefono telefono : telefonos2) {
+			if (telefono.getTipoTelefono().equals("Convencional")) {
+				setTelefonoConveEdit(telefono);
+			}
+			if (telefono.getTipoTelefono().equals("Movil")) {
+				setTelefonoMovilEdit(telefono);
+			}
+
+		}
+
+		List<Servicio> servicios = seron.getServicios(cli);
+		int i = 0;
+		for (Servicio servicio : servicios) {
+			if (i == 0) {
+				setServicioEdit(servicio);
+				tipoServicio = servicioEdit.getTipoServicio();
+			}
+			i++;
+		}
+
+		List<EquipoServicio> equipoServicios = eqServOn.getServicios(servicioEdit);
+		int j = 0;
+		for (EquipoServicio equipoServicio : equipoServicios) {
+			if (j == 0) {
+				setEqServEdit(equipoServicio);
+				ip = eqServEdit.getIp();
+			}
+			j++;
+		}
+		return ip;
+	}
+	 
+	
 }

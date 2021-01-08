@@ -9,6 +9,10 @@
 	<f:metadata>
 		<f:viewParam name="id" value="#{clienteController.id}"></f:viewParam>
 		<f:viewAction action="#{clienteController.loadData()}" />
+
+		<f:viewParam name="idUser" value="#{empleadoControllerBean.idUser}"></f:viewParam>
+		<f:viewAction action="#{empleadoControllerBean.init()}" />
+
 	</f:metadata>
 	<title>Edicion De Datos</title>
 	<meta charset="utf-8" />
@@ -24,6 +28,7 @@
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="resources/assets/js/permisos.js">
+		
 	</script>
 </h:head>
 <body>
@@ -31,42 +36,26 @@
 	<nav class="navbar navbar-default">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="callcenter.xhtml"><img
-				src="resources/assets/img/logo.png" /></a>
+			<!--AL HACER CLIC EN EL LOGO DE LA EMPRESA RETORNAMOS AL MENU INICIAL DEL USUARIO-->
+			<h:form class="navbar-brand">
+				<h:link outcome="viewUser">
+					<h:graphicImage value="resources/assets/img/logo.png" />
+					<f:param name="id" value="#{empleadoControllerBean.idUser}" />
+				</h:link>
+			</h:form>
 		</div>
-		<ul class="nav navbar-nav">
-			<li class="dropdown"><a class="dropdown-toggle"
-				data-toggle="dropdown" href="callcenter.xhtml">Call Center <span
-					class="caret"></span></a>
-				<ul class="dropdown-menu">
-					<li><a href="registro.xhtml">Registros</a></li>
-					<li><a href="listadoInstalaciones.xhtml">Instalaciones</a></li>
-					<li><h:form>
-						</h:form></li>
-
-				</ul></li>
-
-			<li class="dropdown"><a class="dropdown-toggle"
-				data-toggle="dropdown" href="#" onclick="acceso()">Clientes<span
-					class="caret"></span></a>
-				<ul class="dropdown-menu">
-					<li><a href="clientes1.xhtml" id="boton">Clientes</a></li>
-					<li><a href="registrarEmpleado.xhtml" id="boton12">Empleado</a></li>
-				</ul></li>
-
-		</ul>
 
 		<ul class="nav navbar-nav navbar-right">
-			<li><a> #{login.empleado.nombre}</a></li>
-			<li><a id="dep"> #{login.empleado.departamento}</a></li>
+			<li><a> #{empleadoControllerBean.empUser.nombre}</a></li>
+			<li><a id="dep">
+					#{empleadoControllerBean.empUser.rolEmpleado.nombre}</a></li>
 			<li><h:form>
-					<a> <h:commandButton class="btnExit" action="#{login.logout()}"
-							value="Exit" image="./resources/assets/img/exit.png" />
+					<a> <h:commandButton class="btnExit"
+							action="#{loginBean.logout()}" value="Exit"
+							image="./resources/assets/img/exit.png" />
 					</a>
 				</h:form></li>
-
 		</ul>
-
 	</div>
 	</nav>
 
@@ -186,7 +175,8 @@
 							<h:outputLabel class="form-label" for="Latitud">Latitud *</h:outputLabel>
 							<h:inputText type="text" class="form-control" id="Latitud"
 								required="true" requiredMessage="  Campo Obligatorio"
-								value="#{clienteController.cliente.latitud}" a:placeholder="Latitud"
+								value="#{clienteController.cliente.latitud}"
+								a:placeholder="Latitud"
 								validatorMessage="Latitud Invalida; ejm [-3.0075694444444445]">
 								<f:validateRegex
 									pattern="(-?[1-8]?\d(?:\.\d{1,18})?|90(?:\.0{1,18})?)" />
@@ -200,7 +190,8 @@
 							<h:outputLabel class="form-label" for="Longitud">Longitud *</h:outputLabel>
 							<h:inputText type="text" class="form-control" id="Longitud"
 								required="true" requiredMessage="  Campo Obligatorio"
-								value="#{clienteController.cliente.longitud}" a:placeholder="Longitud"
+								value="#{clienteController.cliente.longitud}"
+								a:placeholder="Longitud"
 								validatorMessage="Longitud Invalida; ejm [-78.99883888888888]">
 								<f:validateRegex
 									pattern="(-?(?:1[0-7]|[1-9])?\d(?:\.\d{1,18})?|180(?:\.0{1,18})?)" />
@@ -228,8 +219,8 @@
 
 
 							<h:inputText type="text" class="form-control" id="antenaTmp"
-								value="#{clienteController.antenaTmp}" a:placeholder="Antena Actual"
-								readonly="true">
+								value="#{clienteController.antenaTmp}"
+								a:placeholder="Antena Actual" readonly="true">
 							</h:inputText>
 
 
@@ -280,8 +271,8 @@
 							<h:outputLabel for="routerTmp">Router Vendido</h:outputLabel>
 
 							<h:inputText type="text" class="form-control" id="routerTmp"
-								value="#{clienteController.router}" a:placeholder="Router Vendido"
-								readonly="true">
+								value="#{clienteController.router}"
+								a:placeholder="Router Vendido" readonly="true">
 
 							</h:inputText>
 						</div>

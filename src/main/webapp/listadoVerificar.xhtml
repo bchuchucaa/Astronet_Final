@@ -8,13 +8,17 @@
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
 <h:head>
-	
+
 	<!-- Required meta tags -->
+	<f:metadata>
+		<f:viewParam name="id" value="#{empleadoControllerBean.idUser}"></f:viewParam>
+		<f:viewAction action="#{empleadoControllerBean.init()}" />
+	</f:metadata>
 	<meta charset="utf-8" />
 	<meta name="viewport"
 		content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-	<title>Reportes</title>
+	<title>Listado Verificar</title>
 
 	<link rel="stylesheet"
 		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
@@ -43,6 +47,7 @@
 		crossorigin="anonymous" />
 
 	<script type="text/javascript" src="resources/assets/js/permisos.js">
+		
 	</script>
 
 </h:head>
@@ -50,47 +55,29 @@
 	<nav class="navbar navbar-default">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="callcenter.xhtml"><img
-				src="resources/assets/img/logo.png" /></a>
+			<!--AL HACER CLIC EN EL LOGO DE LA EMPRESA RETORNAMOS AL MENU INICIAL DEL USUARIO-->
+			<h:form class="navbar-brand">
+				<h:link outcome="viewUser">
+					<h:graphicImage value="resources/assets/img/logo.png" />
+					<f:param name="id" value="#{empleadoControllerBean.idUser}" />
+				</h:link>
+			</h:form>
 		</div>
-		<ul class="nav navbar-nav">
-			<li class="dropdown"><a class="dropdown-toggle"
-				data-toggle="dropdown" href="callcenter.xhtml">Call Center <span
-					class="caret"></span></a>
-				<ul class="dropdown-menu">
-					<li><a href="registro.xhtml">Registros</a></li>
-					<li><a href="listadoInstalaciones.xhtml">Instalaciones</a></li>
-					<li><h:form>
-							<p:commandButton class="nuevaInstalacion"
-								onclick="$('#myModal').modal('show')"
-								 ></p:commandButton>
-						</h:form></li>
-
-				</ul></li>
-
-			<li class="dropdown"><a class="dropdown-toggle"
-				data-toggle="dropdown" href="#" onclick="acceso()">Clientes<span
-					class="caret"></span></a>
-				<ul class="dropdown-menu">
-					<li><a href="clientes1.xhtml" id="boton">Clientes</a></li>
-					<li><a href="registrarEmpleado.xhtml" id="boton12">Empleado</a></li>
-				</ul></li>
-
-		</ul>
 
 		<ul class="nav navbar-nav navbar-right">
-			<li><a> #{login.empleado.nombre}</a></li>
-			<li><a id="dep"> #{login.empleado.departamento}</a></li>
+			<li><a> #{empleadoControllerBean.empUser.nombre}</a></li>
+			<li><a id="dep">
+					#{empleadoControllerBean.empUser.rolEmpleado.nombre}</a></li>
 			<li><h:form>
-					<a> <h:commandButton class="btnExit" action="#{login.logout()}"
-							value="Exit" image="./resources/assets/img/exit.png" />
+					<a> <h:commandButton class="btnExit"
+							action="#{loginBean.logout()}" value="Exit"
+							image="./resources/assets/img/exit.png" />
 					</a>
 				</h:form></li>
-
 		</ul>
-
 	</div>
 	</nav>
+
 	<div style="height: 50px"></div>
 	<div class="centerTexto">
 		<h2>Listado de Verificacion</h2>
@@ -104,8 +91,8 @@
 					<h:dataTable id="example"
 						class="table table-striped table-bordered" cellspacing="0"
 						width="100%" style="text-align:center;"
-						value="#{agendamientoController.registrosSolucionadoF}" var="agendamiento"
-						border="1">
+						value="#{agendamientoController.registrosSolucionadoF}"
+						var="agendamiento" border="1">
 						<h:column>
 							<f:facet name="header" data-field="salary" data-sortable="true">Nombres</f:facet>
 												#{agendamiento.cliente.nombre }
@@ -160,13 +147,22 @@
 							<f:facet name="header">Acciones</f:facet>
 							<h:column>
 								<h:form>
+								<!-- 
 									<h:commandButton class="btn btn-primary btnIn"
 										action="#{agendamientoController.editarRegistro(agendamiento.id)}"
-										value="Revisar" immediate="true" />
+										value="Revisar" immediate="true" /> -->
+
+
+									<h:button class="btn btn-primary btnIn" outcome="solucionar"
+										value="Revisar">
+										<f:param name="id" value="#{agendamiento.id}" />
+										<f:param name="idUser"
+											value="#{empleadoControllerBean.idUser}" />
+									</h:button>
 								</h:form>
 							</h:column>
 						</h:column>
-										</h:dataTable>
+					</h:dataTable>
 				</div>
 			</div>
 		</div>

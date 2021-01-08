@@ -2,15 +2,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns = "http://www.w3.org/1999/xhtml"
-   xmlns:h = "http://java.sun.com/jsf/html"
-   xmlns:f = "http://java.sun.com/jsf/core"
-   
-   xmlns:p="http://primefaces.org/ui">
-   
-   <h:head> 
-   
-   	<meta charset="utf-8" />
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<f:metadata>
+		<f:viewParam name="id" value="#{empleadoControllerBean.idUser}"></f:viewParam>
+		<f:viewAction action="#{empleadoControllerBean.init()}" />
+	</f:metadata>
+
+	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
 	<title>Base Clientes</title>
@@ -32,157 +35,170 @@
 		crossorigin="anonymous" />
 	<link href="http://fonts.googleapis.com/css?family=Roboto:400,700,300"
 		rel="stylesheet" type="text/css" />
-		
+
 	<link rel="stylesheet" href="resources/assets/css/table.css" />
 	<link rel="stylesheet" href="resources/assets/css/fondo.css" />
-   
-   </h:head>
-   
-   <style type="text/css">
-    .ui-datatable {
-        margin-bottom: 25px
-    }
- 
-    .ui-datatable .ui-datatable-header {
-        text-align: right !important;
-    }
- 
-    .ui-button-text-only .ui-button-text {
-        padding: 0.3em 0.4em;
-    }
- 
-    .ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
-        visibility: hidden;
-    }
- 
-    .ui-filter-column .ui-column-customfilter .custom-filter {
-        width: 100%;
-        box-sizing: border-box;
-    }
- 
-    .year-spinner input {
-        width: 100%;
-        box-sizing: border-box;
-    }
+
+</h:head>
+
+<style type="text/css">
+.ui-datatable {
+	margin-bottom: 25px
+}
+
+.ui-datatable .ui-datatable-header {
+	text-align: right !important;
+}
+
+.ui-button-text-only .ui-button-text {
+	padding: 0.3em 0.4em;
+}
+
+.ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
+	visibility: hidden;
+}
+
+.ui-filter-column .ui-column-customfilter .custom-filter {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.year-spinner input {
+	width: 100%;
+	box-sizing: border-box;
+}
 </style>
-   
-   <h:body>
-   <nav class="navbar navbar-default">
+
+<h:body>
+	<nav class="navbar navbar-default">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="callcenter.xhtml"><img
-				src="resources/assets/img/logo.png" /></a>
+			<!--AL HACER CLIC EN EL LOGO DE LA EMPRESA RETORNAMOS AL MENU INICIAL DEL USUARIO-->
+			<h:form class="navbar-brand">
+				<h:link outcome="viewUser">
+					<h:graphicImage value="resources/assets/img/logo.png" />
+					<f:param name="id" value="#{empleadoControllerBean.idUser}" />
+				</h:link>
+			</h:form>
 		</div>
-		<ul class="nav navbar-nav">
-			<li class="dropdown"><a class="dropdown-toggle"
-				data-toggle="dropdown" href="callcenter.xhtml">Call Center <span
-					class="caret"></span></a></li>
-
-			<li class="dropdown"><a class="dropdown-toggle"
-				data-toggle="dropdown" href="#" onclick="acceso()">Clientes<span
-					class="caret"></span></a>
-				<ul class="dropdown-menu">
-					<li><a href="clientes1.xhtml" id="boton">Clientes</a></li>
-					<li><a href="registrarEmpleado.xhtml" id="boton12">Empleado</a></li>
-				</ul></li>
-
-		</ul>
 
 		<ul class="nav navbar-nav navbar-right">
-			<li><a> #{login.empleado.nombre}</a></li>
-			<li><a id="dep"> #{login.empleado.departamento}</a></li>
+			<li><a> #{empleadoControllerBean.empUser.nombre}</a></li>
+			<li><a id="dep">
+					#{empleadoControllerBean.empUser.rolEmpleado.nombre}</a></li>
 			<li><h:form>
-					<a> <h:commandButton class="btnExit" action="#{login.logout()}"
-							value="Exit" image="./resources/assets/img/exit.png" />
+					<a> <h:commandButton class="btnExit"
+							action="#{loginBean.logout()}" value="Exit"
+							image="./resources/assets/img/exit.png" />
 					</a>
 				</h:form></li>
-
 		</ul>
-
 	</div>
 	</nav>
 
-    
-      
-      
-      <!-- Creacion Tabla y muestreo de Datos del cliente -->
-      <h:form>
-      
-      <p:dataTable style="text-align:center;"
-				value="#{beanListCliente.listadoclientes}"
-				var="cliente"
-                paginator="true" rows="10"  
-                paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                rowsPerPageTemplate="10,50,100"
-                widgetVar="cliTable"
-                emptyMessage="No hay clientes con esas concidencias"
-                filteredValue="#{beanListCliente.listaFiltrada}">
-                
-           <!-- Inputtexto para la busqueda -->     
-             
-         <f:facet name="header">
-            <p:outputPanel>
-                <h:outputText value="Ingresar Cliente A Buscar Global:" />
-                <p:inputText id="globalFilter" onkeyup="PF('cliTable').filter()" style="width:150px" placeholder="Ingresar Cliente"/>
-            </p:outputPanel>
-        </f:facet>
-
-		<!-- Columnas con campos del cliente -->
-				<p:column headerText="Cedula" filterBy="#{cliente.cedula}" filterMatchMode="contains" >
-					<h:outputText value="#{cliente.cedula}" />
-				</p:column>
-				
-				<p:column headerText="Nombres" filterBy="#{cliente.nombre}" filterMatchMode="contains">
-					<h:outputText value="#{cliente.nombre}" />
-				</p:column>
-				
-				<p:column headerText="Apellidos" filterBy="#{cliente.apellidos}" filterMatchMode="contains">
-					<h:outputText value="#{cliente.apellidos}" />
-				</p:column>
-				
-				<p:column headerText="Direccion Principal" filterBy="#{cliente.direccionPrincipal}" filterMatchMode="contains">
-					<h:outputText value="#{cliente.direccionPrincipal}" />
-				</p:column>
-				
-				<p:column headerText="Direccion Secundaria" filterBy="#{cliente.direccionSecundaria}" filterMatchMode="contains">
-					<h:outputText value="#{cliente.direccionSecundaria}" />
-				</p:column>
-				
-				<p:column headerText="Direccion Referencia" filterBy="#{cliente.direccionReferencia}" filterMatchMode="contains">
-					<h:outputText value="#{cliente.direccionReferencia}" />
-				</p:column>
-				
-				<p:column headerText="Email" filterBy="#{cliente.email}" filterMatchMode="contains">
-					<h:outputText value="#{cliente.email}" />
-				</p:column>
-				
-				<p:column headerText="Latitud" >
-					<h:outputText value="#{cliente.latitud}" />
-				</p:column>
-				
-				<p:column headerText="Longitud" >
-					<h:outputText value="#{cliente.longitud}" />
-				</p:column>
 
 
+
+	<!-- Creacion Tabla y muestreo de Datos del cliente -->
+	<h:form>
+
+		<p:dataTable style="text-align:center;"
+			value="#{beanListCliente.listadoclientes}" var="cliente"
+			paginator="true" rows="10"
+			paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+			rowsPerPageTemplate="10,50,100" widgetVar="cliTable"
+			emptyMessage="No hay clientes con esas concidencias"
+			filteredValue="#{beanListCliente.listaFiltrada}">
+
+			<!-- Inputtexto para la busqueda -->
+
+			<f:facet name="header">
+				<p:outputPanel>
+					<h:outputText value="Ingresar Cliente A Buscar Global:" />
+					<p:inputText id="globalFilter" onkeyup="PF('cliTable').filter()"
+						style="width:150px" placeholder="Ingresar Cliente" />
+				</p:outputPanel>
+			</f:facet>
+
+			<!-- Columnas con campos del cliente -->
+			<p:column headerText="Cedula" filterBy="#{cliente.cedula}"
+				filterMatchMode="contains">
+				<h:outputText value="#{cliente.cedula}" />
+			</p:column>
+
+			<p:column headerText="Nombres" filterBy="#{cliente.nombre}"
+				filterMatchMode="contains">
+				<h:outputText value="#{cliente.nombre}" />
+			</p:column>
+
+			<p:column headerText="Apellidos" filterBy="#{cliente.apellidos}"
+				filterMatchMode="contains">
+				<h:outputText value="#{cliente.apellidos}" />
+			</p:column>
+
+			<p:column headerText="Direccion Principal"
+				filterBy="#{cliente.direccionPrincipal}" filterMatchMode="contains">
+				<h:outputText value="#{cliente.direccionPrincipal}" />
+			</p:column>
+
+			<p:column headerText="Direccion Secundaria"
+				filterBy="#{cliente.direccionSecundaria}" filterMatchMode="contains">
+				<h:outputText value="#{cliente.direccionSecundaria}" />
+			</p:column>
+
+			<p:column headerText="Direccion Referencia"
+				filterBy="#{cliente.direccionReferencia}" filterMatchMode="contains">
+				<h:outputText value="#{cliente.direccionReferencia}" />
+			</p:column>
+
+			<p:column headerText="Email" filterBy="#{cliente.email}"
+				filterMatchMode="contains">
+				<h:outputText value="#{cliente.email}" />
+			</p:column>
+
+			<p:column headerText="Latitud">
+				<h:outputText value="#{cliente.latitud}" />
+			</p:column>
+
+			<p:column headerText="Longitud">
+				<h:outputText value="#{cliente.longitud}" />
+			</p:column>
 			
-				<p:column>
-					<f:facet name="header" data-field="actions">Acciones</f:facet>
-					<h:form>
-							<p:commandButton class="btn btn-primary"
-							action="#{clienteController.editar(cliente.id)}" immediate="true"
-							value="Editar" />
-					</h:form>
-				</p:column>
+			<p:column headerText="IP"
+			filterBy="#{clienteController.returnIp(cliente.id)}" filterMatchMode="contains">
+				<h:outputText value="#{clienteController.returnIp(cliente.id)}" />
+			</p:column>
 			
+			<p:column headerText="Tipo-Servicio"
+			filterBy="#{clienteController.tipoServicio}" filterMatchMode="contains">
+				<h:outputText value="#{clienteController.tipoServicio}" />
+			</p:column>
 			
+		
 
-			</p:dataTable>
-      
-      </h:form>
 
-			
+			<p:column>
+			<!-- 
+				<p:commandButton class="btn btn-primary"
+					action="#{clienteController.editar(cliente.id)}" immediate="true"
+					value="Editar" /> -->
 
-      
-   </h:body>
+
+				<h:button class="btn btn-primary" outcome="editarClientes"
+					value="Editar">
+					<f:param name="id" value="#{cliente.id}" />
+					<f:param name="idUser" value="#{empleadoControllerBean.idUser}" />
+				</h:button>
+			</p:column>
+
+
+
+		</p:dataTable>
+
+	</h:form>
+
+
+
+
+</h:body>
 </html>

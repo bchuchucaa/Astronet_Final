@@ -14,6 +14,7 @@
 	<title>#{usuarioBean.empleadoUser.rolEmpleado.nombre}</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
 	<link rel="stylesheet"
 		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="resources/assets/css/table1.css" />
@@ -40,36 +41,45 @@
 			</h:form>
 		</div>
 		<ul class="nav navbar-nav">
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">Call Center<span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><h:link outcome="callcenter" value="Call Center"
+							rendered="#{usuarioBean.empleadoUser.rolEmpleado.nombre == 'CALL CENTER' || usuarioBean.empleadoUser.rolEmpleado.nombre == 'TECNICO OFICINA' || usuarioBean.empleadoUser.rolEmpleado.nombre == 'ADMINISTRADOR'}">
+							<f:param name="id" value="#{usuarioBean.idUser}" />
+						</h:link></li>
+
+					<li><h:link outcome="registro" value="Registro"
+							rendered="#{usuarioBean.empleadoUser.rolEmpleado.nombre == 'CALL CENTER' || usuarioBean.empleadoUser.rolEmpleado.nombre == 'TECNICO OFICINA' || usuarioBean.empleadoUser.rolEmpleado.nombre == 'ADMINISTRADOR'}">
+							<f:param name="id" value="#{usuarioBean.idUser}" />
+						</h:link></li>
+
+
+					<li><h:link outcome="listadoVerificar"
+							value="Verificar Listado"
+							rendered="#{usuarioBean.empleadoUser.rolEmpleado.nombre == 'CALL CENTER' || usuarioBean.empleadoUser.rolEmpleado.nombre == 'TECNICO OFICINA' || usuarioBean.empleadoUser.rolEmpleado.nombre == 'ADMINISTRADOR'}">
+							<f:param name="id" value="#{usuarioBean.idUser}" />
+						</h:link></li>
+
+
+				</ul></li>
 
 			<li class="dropdown"><a class="dropdown-toggle"
 				data-toggle="dropdown" href="#">Clientes/Empleados<span
 					class="caret"></span></a>
 				<ul class="dropdown-menu">
-					<li><a href="clientesRadio.xhtml" id="boton">Clientes</a></li>
-					<li><a
-						href="listadoEmpleado.xhtml?id=#{usuarioBean.empleadoUser.id}"
-						id="boton1">Empleados</a></li>
-					<li><h:link outcome="prueba" value="pedro"
-							rendered="#{usuarioBean.empleadoUser.rolEmpleado.nombre == 'ADMINISTRADOR' || usuarioBean.empleadoUser.rolEmpleado.nombre == 'prueba1'}">
-							<f:param name="id" value="#{usuarioBean.idUser}" />
+
+					<li><h:link outcome="listadoEmpleado" value="Empleados"
+							rendered="#{usuarioBean.empleadoUser.rolEmpleado.nombre == 'TECNICO OFICINA' || usuarioBean.empleadoUser.rolEmpleado.nombre == 'ADMINISTRADOR'}">
+							<f:param name="id" value="#{usuarioBean.empleadoUser.id}" />
 						</h:link></li>
 
-				</ul></li>
-				
-				<li class="dropdown"><a class="dropdown-toggle"
-				data-toggle="dropdown" href="#">Call Center <span
-					class="caret"></span></a>
-				<ul class="dropdown-menu">
-					<li><a href="callcenter.xhtml?id=#{usuarioBean.empleadoUser.id}" id="boton" >Call Center  </a></li>
-					<li><a
-						href="listadoEmpleado.xhtml?id=#{usuarioBean.empleadoUser.id}"
-						id="boton1">Empleados</a></li>
-					<li><h:link outcome="prueba" value="pedro"
-							rendered="#{usuarioBean.empleadoUser.rolEmpleado.nombre == 'ADMINISTRADOR' || usuarioBean.empleadoUser.rolEmpleado.nombre == 'prueba1'}">
-							<f:param name="id" value="#{usuarioBean.idUser}" />
+					<li><h:link outcome="clienteCrood" value="Clientes"
+							rendered="#{usuarioBean.empleadoUser.rolEmpleado.nombre == 'TECNICO OFICINA' || usuarioBean.empleadoUser.rolEmpleado.nombre == 'ADMINISTRADOR'}">
+							<f:param name="id" value="#{usuarioBean.empleadoUser.id}" />
 						</h:link></li>
-
 				</ul></li>
+
 		</ul>
 
 		<ul class="nav navbar-nav navbar-right">
@@ -82,14 +92,12 @@
 							image="./resources/assets/img/exit.png" />
 					</a>
 				</h:form></li>
-
 		</ul>
-
 	</div>
 	</nav>
 	<div class="centerTexto">
-		<h2>Usted accedió como:
-			#{usuarioBean.empleadoUser.rolEmpleado.nombre}</h2>
+		<!-- <h2>Usted accedió como:
+			#{usuarioBean.empleadoUser.rolEmpleado.nombre}</h2> -->
 		<h:form>
 			<h:button class="btn-success btnEmpleado" outcome="editarEmpleado"
 				value="Editar mis datos">
@@ -105,5 +113,7 @@
 			</h:button>
 		</h:form>
 	</div>
+
 </body>
 </html>
+

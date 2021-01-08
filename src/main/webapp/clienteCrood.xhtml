@@ -8,8 +8,11 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:head>
+	<f:metadata>
+		<f:viewParam name="id" value="#{empleadoControllerBean.idUser}"></f:viewParam>		
+		<f:viewAction action="#{empleadoControllerBean.init()}" />
+	</f:metadata>
 	<title>Crear De Datos</title>
-
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<link rel="stylesheet"
@@ -35,46 +38,47 @@
 	</script>
 </h:head>
 <body>
+
+
+
 	<nav class="navbar navbar-default">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="callcenter.xhtml"><img
-				src="resources/assets/img/logo.png" /></a>
+			<!--AL HACER CLIC EN EL LOGO DE LA EMPRESA RETORNAMOS AL MENU INICIAL DEL USUARIO-->
+			<h:form class="navbar-brand">
+				<h:link outcome="viewUser">
+					<h:graphicImage value="resources/assets/img/logo.png" />
+					<f:param name="id" value="#{empleadoControllerBean.idUser}" />
+				</h:link>
+			</h:form>
 		</div>
+
+		
+		
 		<ul class="nav navbar-nav">
-			<li class="dropdown"><a class="dropdown-toggle"
-				data-toggle="dropdown" href="callcenter.xhtml">Call Center <span
-					class="caret"></span></a>
-				<ul class="dropdown-menu">
-					<li><a href="registro.xhtml">Registros</a></li>
-					<li><a href="listadoInstalaciones.xhtml">Instalaciones</a></li>
-
-				</ul></li>
+			
 
 			<li class="dropdown"><a class="dropdown-toggle"
-				data-toggle="dropdown" href="#" onclick="acceso()">Clientes<span
+				data-toggle="dropdown" href="#">Clientes<span
 					class="caret"></span></a>
 				<ul class="dropdown-menu">
-					<li><a href="clientes1.xhtml" id="boton">Clientes</a></li>
 
-					<li><a href="clienteCrood.xhtml" id="boton">Registrar
-							Cliente</a></li>
-
-
+					<li><h:link outcome="listCliente" value="Listar Clientes">
+							<f:param name="id" value="#{empleadoControllerBean.idUser}" />
+						</h:link></li>
 
 				</ul></li>
-
-
 
 		</ul>
 
-
 		<ul class="nav navbar-nav navbar-right">
-			<li><a> #{login.empleado.nombre}</a></li>
-			<li><a id="dep"> #{login.empleado.departamento}</a></li>
+			<li><a> #{empleadoControllerBean.empUser.nombre}</a></li>
+			<li><a id="dep">
+					#{empleadoControllerBean.empUser.rolEmpleado.nombre}</a></li>
 			<li><h:form>
-					<a> <h:commandButton class="btnExit" action="#{login.logout()}"
-							value="Exit" image="./resources/assets/img/exit.png" />
+					<a> <h:commandButton class="btnExit"
+							action="#{loginBean.logout()}" value="Exit"
+							image="./resources/assets/img/exit.png" />
 					</a>
 				</h:form></li>
 
@@ -82,7 +86,9 @@
 
 	</div>
 	</nav>
-
+	
+	
+	
 	<h:form>
 		<div class="container">
 			<h2></h2>

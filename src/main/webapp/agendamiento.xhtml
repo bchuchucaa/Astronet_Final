@@ -6,11 +6,14 @@
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:h="http://java.sun.com/jsf/html">
 <h:head>
-		<f:metadata>
-			<f:viewParam name="id" value="#{clienteController.idR}"></f:viewParam>
-			<f:viewAction action="#{clienteController.datosRegistro()}" />
-		</f:metadata>
+	<f:metadata>
+		<f:viewParam name="id" value="#{clienteController.idR}"></f:viewParam>
+		<f:viewParam name="idUser" value="#{empleadoControllerBean.idUser}"></f:viewParam>
+		<f:viewAction action="#{clienteController.datosRegistro()}" />		
+		<f:viewAction action="#{empleadoControllerBean.init()}" />
+	</f:metadata>
 	<title>Agendamiento</title>
+		<f:viewParam name="id" value="#{clienteController.idR}"></f:viewParam>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -24,6 +27,7 @@
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="resources/assets/js/permisos.js">
+		
 	</script>
 
 </h:head>
@@ -32,42 +36,29 @@
 	<nav class="navbar navbar-default">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="callcenter.xhtml"><img
-				src="resources/assets/img/logo.png" /></a>
+			<!--AL HACER CLIC EN EL LOGO DE LA EMPRESA RETORNAMOS AL MENU INICIAL DEL USUARIO-->
+			<h:form class="navbar-brand">
+				<h:link outcome="viewUser">
+					<h:graphicImage value="resources/assets/img/logo.png" />
+					<f:param name="id" value="#{empleadoControllerBean.idUser}" />
+				</h:link>
+			</h:form>
 		</div>
-		<ul class="nav navbar-nav">
-			<li class="dropdown"><a class="dropdown-toggle"
-				data-toggle="dropdown" href="callcenter.xhtml">Call Center <span
-					class="caret"></span></a>
-				<ul class="dropdown-menu">
-					<li><a href="registro.xhtml">Registros</a></li>
-				
-
-				</ul></li>
-
-			<li class="dropdown"><a class="dropdown-toggle"
-				data-toggle="dropdown" href="#" onclick="acceso()">Clientes<span
-					class="caret"></span></a>
-				<ul class="dropdown-menu">
-					<li><a href="clientes1.xhtml" id="boton">Clientes</a></li>
-					<li><a href="registrarEmpleado.xhtml" id="boton12">Empleado</a></li>
-				</ul></li>
-
-		</ul>
 
 		<ul class="nav navbar-nav navbar-right">
-			<li><a> #{login.empleado.nombre}</a></li>
-			<li><a id="dep"> #{login.empleado.departamento}</a></li>
+			<li><a> #{empleadoControllerBean.empUser.nombre}</a></li>
+			<li><a id="dep">
+					#{empleadoControllerBean.empUser.rolEmpleado.nombre}</a></li>
 			<li><h:form>
-					<a> <h:commandButton class="btnExit" action="#{login.logout()}"
-							value="Exit" image="./resources/assets/img/exit.png" />
+					<a> <h:commandButton class="btnExit"
+							action="#{loginBean.logout()}" value="Exit"
+							image="./resources/assets/img/exit.png" />
 					</a>
 				</h:form></li>
-
 		</ul>
-
 	</div>
 	</nav>
+
 	<h:form>
 		<div class="centerTexto">
 			<h2>REVISION DE RECLAMOS</h2>
@@ -78,7 +69,7 @@
 				<div class="panel-heading ">
 					<h>Datos Cliente</h>
 				</div>
-				
+
 				<div class="panel-body">
 
 					<div class="row">
@@ -89,75 +80,74 @@
 									value="#{clienteController.agendamiento.fecha}"
 									a:placeholder="Fecha Hora" rendered="" />
 							</div>
-						</div>	
-							<div class="form-group col-xs-6">
-								<h:inputText type="text" class="form-control" id="Nombres"
-									value="#{clienteController.registro.cliente.nombre}"
-									a:placeholder="Nombres" />
-							</div>
-							<div class="form-group col-xs-6">
-								<h:inputText type="text" class="form-control"
-									id="DireccionPrincipal"
-									value="#{clienteController.registro.cliente.direccionPrincipal}"
-									a:placeholder="Direccion Principal" />
-							</div>
-							<div class="form-group col-xs-6">
-								<h:inputText type="text" class="form-control"
-									id="DireccionSecundaria"
-									value="#{clienteController.registro.cliente.direccionSecundaria}"
-									a:placeholder="Direccion Secundaria" />
-							</div>
-							<div class="form-group col-xs-6">
-								<h:inputText type="text" class="form-control"
-									id="DireccionReferencia"
-									value="#{clienteController.registro.cliente.direccionReferencia}"
-									a:placeholder="Direccion Referencia" />
-							</div>
-							<div class="form-group col-xs-6">
-								<h:inputText type="text" class="form-control" id="Latitud"
-									value="#{clienteController.registro.cliente.latitud}"
-									a:placeholder="Latitud" />
-							</div>
-							<div class="form-group col-xs-6">
-								<h:inputText type="text" class="form-control" id="Longitud"
-									value="#{clienteController.registro.cliente.longitud}"
-									a:placeholder="Longitud" />
-							</div>
-							<div class="form-group col-xs-6">
-<!-- 								  <label for="sel1">Problema:</label>      -->
-				n
-								<h:selectOneMenu class="form-control" id="sel4"
-									value="#{clienteController.registro.problema}">
-									<f:selectItems value="#{clienteController.problemas1}"
-										var="pro1" itemLabel="#{pro1.carLabel}"
-										itemValue="#{pro1.carLabel}" />
-								</h:selectOneMenu>
-							</div>
-												</div>
-							  <div class="form-group">
-								<label>Observaciones</label>
-								<h:inputTextarea
-									value="#{clienteController.registro.observaciones}"
-									class="form-control" id="exampleFormControlTextarea1" rows="5" />
-							</div>
-
 						</div>
-					</div>					
-					<div class="form-group col-sm-6">
-						  <label for="selA">Acción:</label>     
-						<h:selectOneMenu class="form-control" id="selAc"
-							value="#{clienteController.registro.accion}">
-							<f:ajax  listener="#{clienteController.fechaHora()}" /> 
-							<f:selectItems value="#{clienteController.oficina1}" var="pro1"
-								itemLabel="#{pro1.carLabel}" itemValue="#{pro1.carLabel}" />
-						</h:selectOneMenu>
+						<div class="form-group col-xs-6">
+							<h:inputText type="text" class="form-control" id="Nombres"
+								value="#{clienteController.registro.cliente.nombre}"
+								a:placeholder="Nombres" />
+						</div>
+						<div class="form-group col-xs-6">
+							<h:inputText type="text" class="form-control"
+								id="DireccionPrincipal"
+								value="#{clienteController.registro.cliente.direccionPrincipal}"
+								a:placeholder="Direccion Principal" />
+						</div>
+						<div class="form-group col-xs-6">
+							<h:inputText type="text" class="form-control"
+								id="DireccionSecundaria"
+								value="#{clienteController.registro.cliente.direccionSecundaria}"
+								a:placeholder="Direccion Secundaria" />
+						</div>
+						<div class="form-group col-xs-6">
+							<h:inputText type="text" class="form-control"
+								id="DireccionReferencia"
+								value="#{clienteController.registro.cliente.direccionReferencia}"
+								a:placeholder="Direccion Referencia" />
+						</div>
+						<div class="form-group col-xs-6">
+							<h:inputText type="text" class="form-control" id="Latitud"
+								value="#{clienteController.registro.cliente.latitud}"
+								a:placeholder="Latitud" />
+						</div>
+						<div class="form-group col-xs-6">
+							<h:inputText type="text" class="form-control" id="Longitud"
+								value="#{clienteController.registro.cliente.longitud}"
+								a:placeholder="Longitud" />
+						</div>
+						<div class="form-group col-xs-6">
+							<!-- 								  <label for="sel1">Problema:</label>      -->
+							n
+							<h:selectOneMenu class="form-control" id="sel4"
+								value="#{clienteController.registro.problema}">
+								<f:selectItems value="#{clienteController.problemas1}"
+									var="pro1" itemLabel="#{pro1.carLabel}"
+									itemValue="#{pro1.carLabel}" />
+							</h:selectOneMenu>
+						</div>
 					</div>
-					<div class="btnsIngre_Agen">
-						<h:commandButton
-							action="#{clienteController.guardarAgendamiento()}"
-							class="btn btn-primary btnIn" value="Ingresar" />
+					<div class="form-group">
+						<label>Observaciones</label>
+						<h:inputTextarea
+							value="#{clienteController.registro.observaciones}"
+							class="form-control" id="exampleFormControlTextarea1" rows="5" />
 					</div>
+
 				</div>
+			</div>
+			<div class="form-group col-sm-6">
+				  <label for="selA">Acción:</label>     
+				<h:selectOneMenu class="form-control" id="selAc"
+					value="#{clienteController.registro.accion}">
+					<f:ajax listener="#{clienteController.fechaHora()}" />
+					<f:selectItems value="#{clienteController.oficina1}" var="pro1"
+						itemLabel="#{pro1.carLabel}" itemValue="#{pro1.carLabel}" />
+				</h:selectOneMenu>
+			</div>
+			<div class="btnsIngre_Agen">
+				<h:commandButton action="#{clienteController.guardarAgendamiento()}"
+					class="btn btn-primary btnIn" value="Ingresar" />
+			</div>
+		</div>
 	</h:form>
 </body>
 </html>
