@@ -103,12 +103,12 @@ public class ClienteController implements Serializable {
 	private String ip;
 	private String password;
 
-
 	private String serial;
 	private String email;
 	private String convencional;
 	private String celular;
 	private String direccionPrincipal;
+
 	public EmpleadoController getUbn() {
 		return ubn;
 	}
@@ -178,10 +178,10 @@ public class ClienteController implements Serializable {
 		telefonos = new ArrayList<Telefono>();
 		equipo = new Equipo();
 		serviciosCliente = new ArrayList<EquipoServicio>();
-		ubn= new EmpleadoController();
-		
-	   registros = regon.getListadoRegistro();
-	
+		ubn = new EmpleadoController();
+
+		registros = regon.getListadoRegistro();
+
 		nuevoTelefono = new Telefono();
 
 		servicioTmp = new Servicio();
@@ -258,10 +258,11 @@ public class ClienteController implements Serializable {
 	public String getApellidos() {
 		return apellidos;
 	}
+
 	public void setRegistrosvisita(List<Registro> registrosvisita) {
 		this.registrosvisita = registrosvisita;
 	}
-	
+
 	public String getPassword() {
 		return password;
 	}
@@ -1868,7 +1869,55 @@ public class ClienteController implements Serializable {
 
 	}
 
+	public void validarIp(FacesContext context, UIComponent componentToValidate, Object value)
+			throws ValidatorException {
 
+		FacesMessage message = null;
+		// Retrieve the temporary value from the password field
+		String ip = null;
+		ip = (String) value;
+		try {
+			if (ip == null || ip.isEmpty()) {
+				message = new FacesMessage("Ip vacio");
+				throw new ValidatorException(message);
+			}
+
+			String[] parts = ip.split("\\.");
+			if (parts.length != 4) {
+
+				message = new FacesMessage("Rango invalido");
+				throw new ValidatorException(message);
+			}
+			int aux = 0;
+			for (String s : parts) {
+				int i = Integer.parseInt(s);
+				if (aux == 3) {
+					if ((i < 2) || (i > 254)) {
+
+						message = new FacesMessage("Ip Invalida, deberia ser de un host");
+						throw new ValidatorException(message);
+
+					}
+				} else {
+					if ((i < 0) || (i > 255)) {
+						message = new FacesMessage("Ip Invalida");
+						throw new ValidatorException(message);
+					}
+
+				}
+				aux++;
+			}
+			if (ip.endsWith(".")) {
+				message = new FacesMessage("Ip Invalida");
+				throw new ValidatorException(message);
+			}
+		} catch (NumberFormatException nfe) {
+			message = new FacesMessage("Ingrese numeros por favor");
+			throw new ValidatorException(message);
+
+		}
+
+	}
 
 	public void validarCorreo(FacesContext context, UIComponent componentToValidate, Object value)
 			throws ValidatorException {
@@ -1938,54 +1987,50 @@ public class ClienteController implements Serializable {
 	// Metod to autocomplete
 
 	public List<String> getSugerencias(String enteredValue) {
-		List<String> coincidencias= new ArrayList<String>();
-			System.out.println("NOMBRE BUSCADO");
-			System.out.println(enteredValue);
-			Cliente clie;
-			
-			for (int i = 0; i < listadoCliente.size(); i++) {
-				
-				clie = (Cliente)listadoCliente.get(i);
-				String nombre= clie.getApellidos()+"/"+clie.getNombre();
-				String apellido= clie.getApellidos();
-				String nombres= clie.getNombre();
-			
-				try {
-					if(	nombres.toLowerCase().startsWith(enteredValue.toLowerCase()) || apellido.toLowerCase().startsWith(enteredValue.toLowerCase())) {
-						System.out.println("Ingresa");
-						
-						coincidencias.add(nombre);
-					}
-					
-				}catch (Exception e) {
-					System.out.println("Exception "+ e);
-				}
-				
-				
+		List<String> coincidencias = new ArrayList<String>();
+		System.out.println("NOMBRE BUSCADO");
+		System.out.println(enteredValue);
+		Cliente clie;
 
+		for (int i = 0; i < listadoCliente.size(); i++) {
+
+			clie = (Cliente) listadoCliente.get(i);
+			String nombre = clie.getApellidos() + "/" + clie.getNombre();
+			String apellido = clie.getApellidos();
+			String nombres = clie.getNombre();
+
+			try {
+				if (nombres.toLowerCase().startsWith(enteredValue.toLowerCase())
+						|| apellido.toLowerCase().startsWith(enteredValue.toLowerCase())) {
+					System.out.println("Ingresa");
+
+					coincidencias.add(nombre);
+				}
+
+			} catch (Exception e) {
+				System.out.println("Exception " + e);
 			}
-			
-			
+
+		}
 
 		return coincidencias;
-		
-			
-		
+
 	}
+
 	public String findByNames() {
-		System.out.println("THIS IS THE IDENTIFICACION OF CLIENT "+ inputName);
+		System.out.println("THIS IS THE IDENTIFICACION OF CLIENT " + inputName);
 
 		try {
-			//String nombre=inputName.substring(inputName.lastIndexOf("/") + 1);
-			//String apellido=inputName.split('/');
-			String[] credenciales= inputName.split("/");
-			String nombres= credenciales[1];
-			String apellidos= credenciales[0];
+			// String nombre=inputName.substring(inputName.lastIndexOf("/") + 1);
+			// String apellido=inputName.split('/');
+			String[] credenciales = inputName.split("/");
+			String nombres = credenciales[1];
+			String apellidos = credenciales[0];
 			System.out.println(nombres);
 			System.out.println(apellidos);
 			System.out.println(inputName);
-			//cliente = clion.getClienteCedula(inputName);
-			cliente= clion.buscarNombreApellido(nombres, apellidos);
+			// cliente = clion.getClienteCedula(inputName);
+			cliente = clion.buscarNombreApellido(nombres, apellidos);
 			System.out.println(cliente.getCedula());
 			setTelefonos(telOn.getTelefonos(cliente));
 			for (Telefono telefono : telefonos) {
@@ -1995,20 +2040,19 @@ public class ClienteController implements Serializable {
 			registro.setIdClienteTemp(cliente.getId());
 			cliente.setTelefonos(telefonos);
 			fechaHora();
-			//datoR();
+			// datoR();
 			setNuevoTelefono(null);
 			setNuevoTipoTelefono(null);
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "Credenciales Correctas"));
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "Credenciales Correctas"));
 
-
-			
-		}catch (Exception e) {
+		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("NO HAY TEXTO ");
 		}
 		return null;
-		
-		}
+
+	}
 
 	public void newTelefono(Telefono telefono) {
 		System.out.println("Telefono de parametro " + telefono.getTelNumero());
@@ -2049,6 +2093,7 @@ public class ClienteController implements Serializable {
 		}
 
 	}
+
 	public void ingresaVisita() {
 		System.out.println(tecnicoElegido);
 		System.out.println("************entro**************");
@@ -2064,19 +2109,17 @@ public class ClienteController implements Serializable {
 		System.out.println("Se guardo correcto correctamente");
 	}
 
-	
-	
 	public void cargarDatosRegistro1(int codigo) {
 		try {
 			System.out.println("Llegando:::::111");
 			cliente.setId(registro.getCliente().getId());
 			registro.getCliente().setId(cliente.getId());
 			System.out.println("cliente id " + cliente.getId());
-		//	empleado.setId(registro.getEmpleado().getId());
-		//	registro.getEmpleado().setId(codigo);
-			System.out.println("imprime esto:   " + registro.getFechaHora());					
+			// empleado.setId(registro.getEmpleado().getId());
+			// registro.getEmpleado().setId(codigo);
+			System.out.println("imprime esto:   " + registro.getFechaHora());
 			Cliente cli = clion.getCliente(registro.getCliente().getId());
-			Empleado em= empon.getEmpleado(codigo);
+			Empleado em = empon.getEmpleado(codigo);
 			registro.setCliente(cli);
 			registro.setEmpleado(em);
 			regon.guardar(registro);
@@ -2085,11 +2128,12 @@ public class ClienteController implements Serializable {
 //			visitaOn.guardar(g);
 			System.out.println("Se guardo correcto correctamente");
 			init();
-		
+
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 	}
+
 	public List<Cliente> getFiltradoCliente() {
 		return filtradoCliente;
 	}
