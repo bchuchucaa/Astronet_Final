@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+<f:metadata>
+				<f:viewParam name="id" value="#{login.id}"></f:viewParam> 
+				<f:viewAction action="#{login.loadData()}"/> 
+	</f:metadata>
+	<title>Registro Empleado</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="resources/assets/css/table.css" />
+<!-- 	<link rel="stylesheet" href="resources/assets/css/table2.css" /> -->
+	<link rel="stylesheet" href="resources/assets/css/fondo.css" />
+<!-- 	<link rel="stylesheet" href="resources/assets/css/registroEmpleado.css" /> -->
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</h:head>
+<body>
+
+	<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="callcenter.xhtml"><img
+				src="resources/assets/img/logo.png" /></a>
+		</div>
+		<ul class="nav navbar-nav">
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="callcenter.xhtml">Call Center <span
+					class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="registro.xhtml">Registros</a></li>
+					<li><a href="listadoInstalaciones.xhtml">Instalaciones</a></li>
+					<li><h:form><p:commandButton class="nuevaInstalacion" onclick="$('#myModal').modal('show')" 
+				onblur="#{clienteController.datoI()}" value="N Instalacion"></p:commandButton></h:form></li>
+
+				</ul></li>
+
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#" onclick="acceso()">Clientes<span
+					class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="clientes1.xhtml" id="boton">Clientes</a></li>
+					<li><a href="registrarEmpleado.xhtml" id="boton12">Empleado</a></li>
+				</ul></li>
+
+		</ul>
+
+		<ul class="nav navbar-nav navbar-right">
+			<li><a> #{login.empleado.nombre}</a></li>
+			<li><a id="dep"> #{login.empleado.departamento}</a></li>
+			<li><h:form>
+					<a> <h:commandButton class="btnExit" action="#{login.logout()}"
+							value="Exit" image="./resources/assets/img/exit.png" />
+					</a>
+				</h:form></li>
+
+		</ul>
+
+	</div>
+	</nav>
+
+	<div class="centerTexto">
+		<h2>Registro Empleados</h2>
+	</div>
+	
+	<h:form>
+		<div class="container">
+			<h2></h2>
+			<div class="panel panel-default anchoModal">
+				<div class="panel-heading">Registrar Empleado</div>
+				
+				<div>
+				<h:commandButton  class="btn-success btnEmpleado" action="listadoEmpleado" value="Lista Empleados" />
+				</div>
+				
+				<div class="panel-body ">
+					<div class="modal-body">
+						<div class="form-group">
+							<h:inputText type="text" class="form-control" id="Cedula"
+								value="#{login.empleado.cedula}"
+								a:placeholder="Cedula" />
+						</div>
+						<div class="form-group">
+							<h:inputText type="text" class="form-control" id="Nombres"
+								value="#{login.empleado.nombre}"
+								a:placeholder="Nombres" />
+						</div>
+
+						<div class="form-group">
+							<h:inputText type="text" class="form-control" id="Celular"
+								value="#{login.empleado.celular}"
+								a:placeholder="Celular" />
+						</div>
+						<div class="form-group">
+							<h:inputText type="text" class="form-control" id="Email"
+								value="#{login.empleado.email}"
+								a:placeholder="Email" />
+						</div>
+						<div class="form-group">
+							<h:inputText type="text" class="form-control" id="Password"
+								value="#{login.empleado.password}"
+								a:placeholder="Password" />
+						</div>
+						
+						<div class="form-group">
+							<h:inputText type="text" class="form-control" id="Departamento"
+								value="#{login.empleado.departamento}"
+								a:placeholder="Departamento" />
+						</div>
+
+						<!-- Modal footer -->
+						<div class="modal-footer">
+							<h:commandButton action="#{login.guardarEmpleado()}"
+								value="Guardar" class="btn btn-primary"
+								 />
+							<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+	</h:form>
+
+
+</body>
+</html>

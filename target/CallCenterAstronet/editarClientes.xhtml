@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<f:metadata>
+				<f:viewParam name="id" value="#{clienteController.id}"></f:viewParam> 
+				<f:viewAction action="#{clienteController.loadData()}"/> 
+	</f:metadata>
+	<title>Edicion De Datos</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="resources/assets/css/table.css" />
+	<link rel="stylesheet" href="resources/assets/css/fondo.css" />
+	<link rel="stylesheet" href="resources/assets/css/instaEdicion.css" />
+	
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="resources/assets/js/permisos.js">
+	</script>
+</h:head>
+<body>
+
+	<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="callcenter.xhtml"><img
+				src="resources/assets/img/logo.png" /></a>
+		</div>
+		<ul class="nav navbar-nav">
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="callcenter.xhtml">Call Center <span
+					class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="registro.xhtml">Registros</a></li>
+					<li><a href="listadoInstalaciones.xhtml">Instalaciones</a></li>
+					<li><h:form><p:commandButton class="nuevaInstalacion" onclick="$('#myModal').modal('show')" 
+				onblur="#{clienteController.datoI()}" value="N Instalacion"></p:commandButton></h:form></li>
+
+				</ul></li>
+
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#" onclick="acceso()">Clientes<span
+					class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="clientes1.xhtml" id="boton">Clientes</a></li>
+					<li><a href="registrarEmpleado.xhtml" id="boton12">Empleado</a></li>
+				</ul></li>
+
+		</ul>
+
+		<ul class="nav navbar-nav navbar-right">
+			<li><a> #{login.empleado.nombre}</a></li>
+			<li><a id="dep"> #{login.empleado.departamento}</a></li>
+			<li><h:form>
+					<a> <h:commandButton class="btnExit" action="#{login.logout()}"
+							value="Exit" image="./resources/assets/img/exit.png" />
+					</a>
+				</h:form></li>
+
+		</ul>
+
+	</div>
+	</nav>
+
+	<h:form>
+		<div class="container">
+			<h2></h2>
+			<div class="panel panel-default inputText div_centrado">
+				<div class="panel-heading">Editar Cliente</div>
+
+				<div class="panel-body ">
+					<div class="modal-body">
+						<div class="form-group col-sm-4">
+							  <label for="sel1">Antena Designada:</label>  
+							<h:selectOneMenu
+								value="#{clienteController.cliente.codigoAntenaTemp}"
+								id="txtAntena">
+								<f:ajax listener="#{clienteController.consultarCliente()}"
+									render="datosPersona errores" />
+								<f:selectItems value="#{clienteController.listadoAntena}"
+									var="antena" itemLabel="#{antena.modelo}"
+									itemValue="#{antena.id}" />
+							</h:selectOneMenu>
+						</div>
+						<div class="modal-body">
+							<div class="form-group">
+								<h:inputText type="text" class="form-control" id="Cedula"
+									value="#{clienteController.cliente.cedula}"
+									a:placeholder="Cedula" />
+							</div>
+							<div class="form-group">
+								<h:inputText type="text" class="form-control" id="Nombres"
+									value="#{clienteController.cliente.nombre}"
+									a:placeholder="Nombres" />
+							</div>
+							<div class="form-group">
+								<h:inputText type="text" class="form-control" id="Email"
+									value="#{clienteController.cliente.email}"
+									a:placeholder="Email" />
+							</div>
+							<div class="form-group">
+								<h:inputText type="text" class="form-control" id="Convencional"
+									value="#{clienteController.cliente.convencional}"
+									a:placeholder="Convencional" />
+							</div>
+							<div class="form-group">
+								<h:inputText type="text" class="form-control" id="Celular"
+									value="#{clienteController.cliente.celular}"
+									a:placeholder="Celular" />
+							</div>
+							<div class="form-group">
+								<h:inputText type="text" class="form-control"
+									id="DireccionPrincipal"
+									value="#{clienteController.cliente.direccionPrincipal}"
+									a:placeholder="Direccion Principal" />
+							</div>
+							<div class="form-group">
+								<h:inputText type="text" class="form-control"
+									id="DireccionSecundaria"
+									value="#{clienteController.cliente.direccionSecundaria}"
+									a:placeholder="Direccion Secundaria" />
+							</div>
+							<div class="form-group">
+								<h:inputText type="text" class="form-control"
+									id="DireccionReferencia"
+									value="#{clienteController.cliente.direccionReferencia}"
+									a:placeholder="Direccion Referencia" />
+							</div>
+							<div class="form-group">
+								<h:inputText type="text" class="form-control" id="Latitud"
+									value="#{clienteController.cliente.latitud}"
+									a:placeholder="Latitud" />
+							</div>
+							<div class="form-group">
+								<h:inputText type="text" class="form-control" id="Longitud"
+									value="#{clienteController.cliente.longitud}"
+									a:placeholder="Longitud" />
+							</div>
+
+							<div class="form-group">
+								<h:inputText type="text" class="form-control"
+									id="NumeroContrato"
+									value="#{clienteController.cliente.servicio.get(i).numeroContrato}"
+									a:placeholder="Numero Contrato" />
+							</div>
+							<div class="form-group">
+								<h:inputText type="text" class="form-control" id="FechaContrato"
+									value="#{clienteController.cliente.servicio.get(i).fechaContrato}"
+									a:placeholder="Fecha Contrato" />
+							</div>
+							<div class="form-group">
+								<h:inputText type="text" class="form-control" id="DireccionIP"
+									value="#{clienteController.cliente.servicio.get(i).ip}"
+									placeholder="Direccion IP" />
+							</div>
+							<div class="form-group">
+								<h:inputText type="text" class="form-control" id="Password"
+									value="#{clienteController.cliente.servicio.get(i).password}"
+									a:placeholder="Password" />
+							</div>
+							<div class="form-group">
+								<h:inputText type="text" class="form-control" id="Plan"
+									value="#{clienteController.cliente.servicio.get(i).plan}"
+									placeholder="Plan" />
+							</div>
+							<div class="form-group">
+<!-- 								<h:inputText type="text" class="form-control" id="Observaciones" -->
+<!-- 									value="#{clienteController.cliente.servicio.get(i).observaciones}" -->
+<!-- 									a:placeholder="Observaciones" /> -->
+									<label for="exampleFormControlTextarea1">Observaciones</label>
+									<h:inputTextarea
+										value="#{clienteController.cliente.servicio.get(i).observaciones}"
+										class="form-control" id="exampleFormControlTextarea1" rows="5" />
+							</div>
+
+							<!-- Modal footer -->
+							<div class="modal-footer">
+
+								<h:commandButton class="btn btn-primary" data-dismiss="modal"
+									action="#{clienteController.cargarDatos()}" value="Guardar" />
+								<h:commandButton action="clientes1" value="Cancelar"
+									class="btn btn-danger" data-dismiss="modal" />
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</h:form>
+
+
+</body>
+</html>

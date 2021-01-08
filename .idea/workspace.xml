@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8363afe1-2ffa-4a4d-85a1-8a8797b54433" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1lpsuXE89cOT4AtJTrzhXYnSGHO" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="postgresql" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+  </component>
+  <component name="RunManager">
+    <configuration name="console_3.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
+      <script-file value="$APPLICATION_CONFIG_DIR$/consoles/db/83f8c5bc-4010-4faf-88f1-6fdc3de7018a/console_3.sql" />
+      <script-mode>FILE</script-mode>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Database Script.console_3.sql" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8363afe1-2ffa-4a4d-85a1-8a8797b54433" name="Default Changelist" comment="" />
+      <created>1608305590471</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1608305590471</updated>
+      <workItem from="1608305601918" duration="2000" />
+      <workItem from="1609123333104" duration="603000" />
+      <workItem from="1609173076874" duration="7306000" />
+      <workItem from="1609282213100" duration="219000" />
+      <workItem from="1609338410024" duration="6661000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1723" y="46" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1609123404692">
+      <screen x="1440" y="0" width="1366" height="768" />
+    </state>
+    <state x="1723" y="46" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1440.900/1440.0.1366.768@1440.0.1366.768" timestamp="1609123404692" />
+    <state x="416" y="119" key="#console_3.sql" timestamp="1609193901878">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="416" y="119" key="#console_3.sql/0.0.1440.900@0.0.1440.900" timestamp="1609193901878" />
+    <state width="958" height="249" key="GridCell.Tab.0.bottom" timestamp="1609348929745">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="958" height="249" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1609348929745" />
+    <state width="958" height="249" key="GridCell.Tab.0.center" timestamp="1609348929744">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="958" height="249" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1609348929744" />
+    <state width="958" height="249" key="GridCell.Tab.0.left" timestamp="1609348929743">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="958" height="249" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1609348929743" />
+    <state width="958" height="249" key="GridCell.Tab.0.right" timestamp="1609348929745">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="958" height="249" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1609348929745" />
+  </component>
+</project>

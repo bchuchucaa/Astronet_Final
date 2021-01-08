@@ -1,0 +1,392 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://java.sun.com/jsf/html">
+	
+<h:head>
+	<f:metadata>
+		<!-- 				<f:viewParam name="id" value="#{clienteController.id}"></f:viewParam>  --><!-- 
+					 <f:viewAction action="acceso()" />   
+		<f:event listener="acceso()" type="preRenderView" />  -->
+	</f:metadata>
+	<title>Call Center</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="resources/assets/css/table1.css" />
+	<link rel="stylesheet" href="resources/assets/css/table.css" />
+	<link rel="stylesheet" href="resources/assets/css/fondo.css" />
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	
+	
+	<script type="text/javascript">
+	function acceso(){
+		var dep=document.getElementById("dep");
+		var dir='Radio';
+		var boton=document.getElementById("boton");
+		var boton1=document.getElementById("boton1");
+		var boton12=document.getElementById("boton12")
+		if(dep.innerText != 'Radio'){
+			alert("Bloqueado no tienes los permisos establecidos contacte con tu administrador")
+				boton.disabled=true;
+			boton1.disabled=true;
+			boton12.disabled=true;
+				
+			}
+		else{
+			alert("Bievenido");
+			boton.disabled =false;
+			boton1.disabled=false;
+			boton12.disabled=false;
+			
+			}
+		}
+	</script>
+
+</h:head>
+<body>
+
+	<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="callcenter.xhtml"><img
+				src="resources/assets/img/logo.png" /></a>
+		</div>
+		<ul class="nav navbar-nav">
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">Call Center <span
+					class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="registro.xhtml">Registros</a></li>
+					<li><a href="listadoInstalaciones.xhtml">Instalaciones</a></li>
+					<li><h:form><p:commandButton class="nuevaInstalacion" onclick="$('#myModal').modal('show')" 
+				onblur="#{clienteController.datoI()}" value="N Instalacion"></p:commandButton></h:form></li>
+
+				</ul></li>
+
+			<li class="dropdown" ><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#" onclick="acceso()" >Clientes<span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="clientes1.xhtml" id="boton">Clientes</a></li>
+					<li><a href="registrarEmpleado.xhtml" id="boton1">Empleado</a></li>
+				</ul></li>
+
+		</ul>
+
+		<ul class="nav navbar-nav navbar-right">
+			<li><a> #{login.empleado.nombre}</a></li>
+			<li><a id="dep"> #{login.empleado.departamento}</a></li>
+			<li><h:form>
+					<a> <h:commandButton class="btnExit" action="#{login.logout()}"
+							value="Exit" image="./resources/assets/img/exit.png" />
+					</a>
+				</h:form></li>
+
+		</ul>
+
+	</div>
+	</nav>
+	<div class="centerTexto">
+		<h2>INGRESO DE RECLAMOS E INSTALACIONES NUEVAS</h2>
+	</div>
+
+	<!-- Inicio boton Nueva Solicitud -->
+	<div class="anchoBoton btnSolicitud">
+		<h:form>
+		<div>
+					<p:growl id="growl" showDetail="true"  >
+					<p:autoUpdate></p:autoUpdate>
+					</p:growl>
+					</div>
+			
+
+			<!-- Ventana Modal -->
+			<!-- The Modal -->
+			<div class="modal fade" id="myModal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+
+						<!-- Modal Header -->
+						<div class="modal-header" style="background-color: #048DE5;">
+							<h4 class="modal-title" style="color: aliceblue;">Instalacion</h4>
+							<button type="button" class="close" data-dismiss="modal">Cerrar</button>
+						</div>
+
+						<!-- Modal body -->
+						<div class="modal-body">
+							<div class="form-group col-sm-5">
+								<div class="input-group marginBuscar">
+									<h:inputText class="form-control"
+										value="#{clienteController.instalacion.codigoEmpTemp}"
+										a:placeholder="insid" id="txtEmpleado123" rendered="">
+									</h:inputText>
+								<!-- 	<h:panelGroup id="datosPersona124">
+										<h:message for="txtEmpleado123" />
+							#{clienteController.instalacion.empleado.nombre}
+					</h:panelGroup> -->
+								</div>
+							</div>
+
+							<div class="form-group">
+
+								<h:selectOneRadio
+									value="#{clienteController.instalacion.tipoServicio}">
+									<f:ajax listener="#{clienteController.consultarEmpleado1()}"
+										render="datosPersona124" />
+									<f:selectItems value="#{clienteController.listaServicioRB}"
+										var="sr" itemLabel="#{sr.servicioLabel}"
+										itemValue="#{sr.servicioValue}" />
+								</h:selectOneRadio>
+							</div>
+
+							<div class="form-group">
+								<h:inputText type="text" class="form-control"
+									a:placeholder="Nombres"
+									value="#{clienteController.instalacion.nombre}" />
+							</div>
+							<div class="form-group">
+								<h:inputText type="text" class="form-control" id="Direccion"
+									a:placeholder="Direccion"
+									value="#{clienteController.instalacion.direccion}" />
+							</div>
+							<div class="form-group">
+								<h:inputText type="text" class="form-control" id="Telefonos"
+									a:placeholder="Telefonos"
+									value="#{clienteController.instalacion.telefono}" />
+							</div>
+							<div class="form-group">
+								<h:inputText type="text" class="form-control" id="Coordenada"
+									a:placeholder="Coordenadas"
+									value="#{clienteController.instalacion.coordenadas}" />
+							</div>
+							<div class="form-group">
+								<label for="exampleFormControlTextarea1">Observaciones</label>
+								<h:inputTextarea
+									value="#{clienteController.instalacion.observaciones}"
+									class="form-control" id="exampleFormControlTextarea11" rows="5" />
+							</div>
+							<div class="form-group">
+								  <label for="sel1">Tecnico:</label>  
+								<h:selectOneMenu
+									value="#{clienteController.instalacion.tecnico}"
+									id="txtEmpleado12345">
+									<f:selectItems value="#{clienteController.empleados}"
+										var="empleado" itemLabel="#{empleado.nombre}"
+										itemValue="#{empleado.nombre}" />
+								</h:selectOneMenu>
+							</div>
+
+
+						</div>
+
+						<!-- Modal footer -->
+						<div class="modal-footer">
+							<h:commandButton class="btn btn-primary" value="Guardar"
+								action="#{clienteController.crearInstalacion()}" />
+							<h:commandButton class="btn btn-danger" data-dismiss="modal"
+								value="Cerrar" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</h:form>
+		
+	</div>
+
+	<h:form>
+
+		<div class="container margenCaja">
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h>Datos Cliente</h>
+				
+
+				</div>
+				<div class="panel-body">
+
+					<div class="row">
+
+						<div class="form-group col-sm-3">
+							<div class="input-group marginBuscar">
+								<h:inputText class="form-control"
+									value="#{clienteController.cliente.cedula}"
+									a:placeholder="Cedula del Cliente" name="search" />
+								<div class="input-group-btn" id="txtCedula">
+									<h:commandButton render="Nombres"
+										class="btn btn-default botonBuscar"
+										action="#{clienteController.buscarCedula()}"
+										image="/resources/assets/img/buscar.png"/>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group col-sm-5">
+							<div class="input-group marginBuscar">
+								<h:inputText class="form-control"
+									value="#{clienteController.cliente.nombre}"
+									a:placeholder="Nombres del Cliente" name="search" />
+								<div class="input-group-btn">
+									<h:commandButton render="Nombres"
+										class="btn btn-default botonBuscar"
+										action="#{clienteController.buscarNombre()}"
+										image="/resources/assets/img/buscar.png" />
+								</div>
+							</div>
+						</div>
+						<div class="form-group col-sm-5">
+							<div class="input-group marginBuscar">
+								<h:inputText class="form-control"
+									value="#{clienteController.registro.fechaHora}"
+									a:placeholder="Fecha Hora" rendered=""/>
+								
+							</div>
+							
+						</div>
+						
+						<div class="form-group col-sm-5">
+							<div class="input-group marginBuscar">
+								<h:inputText class="form-control"
+									value="#{clienteController.registro.idClienteTemp}"
+									a:placeholder="clid" id="txtCliente1" rendered="">
+									</h:inputText>
+								<h:panelGroup id="datosPersona123">
+								<h:message for="txtCliente1" rendered=""/>
+							#{clienteController.registro.cliente.nombre}
+					</h:panelGroup>
+							</div>
+						</div>
+						
+						<!-- <div class="form-group col-sm-4">
+						  <label for="sel1">Tecnico:</label>  
+						<h:selectOneMenu value="#{clienteController.registro.idEmpleadoTemp}" id="txtEmpleado11">
+						<f:ajax listener="#{clienteController.consultarEmpleado()}"
+										render="datosPersona errores" />
+						<f:selectItems value="#{clienteController.empleados}" var="empleado"
+						itemLabel="#{empleado.nombre}" itemValue="#{empleado.id}"/>
+						</h:selectOneMenu>
+					</div> -->
+						
+						
+						<div class="form-group col-sm-5">
+							<div class="input-group marginBuscar">						
+								<h:inputText class="form-control"
+									value="#{clienteController.registro.idEmpleadoTemp}"
+									a:placeholder="clid" id="txtEmpleado1" rendered=""></h:inputText>
+								<h:panelGroup id="datosPersona12">
+								<h:message for="txtEmpleado1" rendered="" />
+							#{clienteController.registro.empleado.nombre}
+					</h:panelGroup>
+							</div>
+						</div>
+
+
+					</div>
+				
+
+					</div>
+
+					<!-- Aqui comienza la tabla -->
+				
+
+					<div id="main-container" class="cabecera">
+					
+					<h:dataTable id="Nombres" value="#{clienteController.cliente}"
+							var="cliente">
+
+							<h:column>
+								<f:facet name="header" data-field="nombres" data-sortable="true">Nombres</f:facet>
+											#{clienteController.cliente.nombre}
+												</h:column>
+
+							<h:column>
+								<f:facet name="header" data-field="direccion"
+									data-sortable="true">Direccion</f:facet>
+													<h:inputText class="cabecera" value="#{cliente.direccionPrincipal}" />
+													<br />
+					<h:inputText class="cabecera" value="#{cliente.direccionSecundaria}" />
+					<br />
+					<h:inputText class="cabecera" value="#{cliente.direccionReferencia}" />
+												</h:column>
+
+							<h:column>
+								<f:facet name="header" data-field="telefono"
+									data-sortable="true">Telefono</f:facet>
+											<h:inputText value="#{cliente.convencional}" />
+											<br />
+					<h:inputText value="#{cliente.celular}" />
+												</h:column>
+
+							<h:column>
+								<f:facet name="header" data-field="direccionIp"
+									data-sortable="true">Direccion IP</f:facet>
+											#{cliente.servicio.get(i).ip}
+												</h:column>
+
+						</h:dataTable>
+						
+
+					</div>
+					<!-- Aqui termina la tabla -->
+					
+					<div class="btnsIngre_Agen">
+					<h:commandButton class="btn btn-primary btnIn" action="#{clienteController.cargarDatosCallCenter()}" value="Actualizar" />
+					</div>
+
+					<div class="form-group col-sm-6">
+						  <label for="sel1" class="etiquetas">Problema:</label>     
+						<h:selectOneMenu class="form-control" id="sel1"
+							value="#{clienteController.registro.problema}">
+													<f:ajax execute="txtCliente1" listener="#{clienteController.consultarCliente()}" render="datosPersona123"/> 
+							<f:selectItems value="#{clienteController.problemas1}" var="pro1"
+								itemLabel="#{pro1.carLabel}" itemValue="#{pro1.carLabel}" />
+						</h:selectOneMenu>
+					</div>
+
+
+					<div class="form-group col-sm-6">
+						  <label for="sel1" class="etiquetas">Acción:</label>     
+						<h:selectOneMenu class="form-control" id="selAc"
+							value="#{clienteController.registro.accion}">
+							<f:selectItems value="#{clienteController.accion}" var="pro1"
+								itemLabel="#{pro1.carLabel}" itemValue="#{pro1.carLabel}" />
+						</h:selectOneMenu>
+					</div>
+					
+
+
+					<div class="form-group cabecera">
+						<label for="exampleFormControlTextarea1">Observaciones</label>
+						<h:inputTextarea
+							value="#{clienteController.registro.observaciones}"
+							class="form-control" id="exampleFormControlTextarea1" rows="5">
+						</h:inputTextarea>
+					</div>
+
+					<div class="btnsIngre_Agen">
+
+
+						<h:commandButton
+							action="#{clienteController.cargarDatosRegistro()}"
+							class="btn btn-primary btnIn" value="Ingresar"  />
+					</div>
+
+				</div>
+
+			</div>
+
+
+
+	</h:form>
+
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+		xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<f:metadata>
+	</f:metadata>
+
+	<title>Instalacion</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="resources/assets/css/table.css" />
+	<link rel="stylesheet" href="resources/assets/css/fondo.css" />
+	<link rel="stylesheet" href="resources/assets/css/instaEdicion.css" />
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="resources/assets/js/permisos.js">
+	</script>
+</h:head>
+<body>
+	<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="callcenter.xhtml"><img
+				src="resources/assets/img/logo.png" /></a>
+		</div>
+		<ul class="nav navbar-nav">
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="callcenter.xhtml">Call Center <span
+					class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="registro.xhtml">Registros</a></li>
+					<li><a href="listadoInstalaciones.xhtml">Instalaciones</a></li>
+					<li><h:form><p:commandButton class="nuevaInstalacion" onclick="$('#myModal').modal('show')" 
+				onblur="#{clienteController.datoI()}" value="N Instalacion"></p:commandButton></h:form></li>
+
+				</ul></li>
+
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#" onclick="acceso()">Clientes<span
+					class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="clientes1.xhtml" id="boton">Clientes</a></li>
+					<li><a href="registrarEmpleado.xhtml" id="boton12">Empleado</a></li>
+				</ul></li>
+
+		</ul>
+
+		<ul class="nav navbar-nav navbar-right">
+			<li><a> #{login.empleado.nombre}</a></li>
+			<li><a id="dep"> #{login.empleado.departamento}</a></li>
+			<li><h:form>
+					<a> <h:commandButton class="btnExit" action="#{login.logout()}"
+							value="Exit" image="./resources/assets/img/exit.png" />
+					</a>
+				</h:form></li>
+
+		</ul>
+
+	</div>
+	</nav>
+
+	<h:form>
+		<div class="container">
+			<h2></h2>
+			<div class="panel panel-default inputText div_centrado">
+
+				<div class="panel-heading">Instalacion Nueva</div>
+
+				<div class="panel-body ">
+					<div class="modal-body ">
+
+						<div class="form-group">
+							<h:inputText type="text" class="form-control"
+								a:placeholder="ID Registro"
+								value="#{clienteController.instalacion.codigoEmpTemp}"
+								id="txtEmpleado12" >
+							</h:inputText>
+							<h:panelGroup id="datosPersona12">
+								<h:message for="txtEmpleado12" />
+							#{clienteController.instalacion.empleado.nombre}
+					</h:panelGroup>
+						</div>
+						
+						
+						
+						<div class="form-group">
+						
+							<h:selectOneRadio
+								value="#{instalacionController.instalacion.tipoServicio}">
+								<f:ajax execute="txtEmpleado12" listener="#{instalacionController.consultarEmpleado1()}" render="datosPersona12"/>
+								<f:selectItems value="#{instalacionController.listaServicioRB}"
+									var="sr" itemLabel="#{sr.servicioLabel}"
+									itemValue="#{sr.servicioValue}" />
+							</h:selectOneRadio>
+						</div>
+
+						<div class="form-group">
+							<h:inputText type="text" class="form-control"
+								a:placeholder="Nombres"
+								value="#{instalacionController.instalacion.nombre}" />
+						</div>
+						<div class="form-group">
+							<h:inputText type="text" class="form-control" id="Direccion"
+								a:placeholder="Direccion"
+								value="#{instalacionController.instalacion.direccion}" />
+						</div>
+						<div class="form-group">
+							<h:inputText type="text" class="form-control" id="Telefonos"
+								a:placeholder="Telefonos"
+								value="#{instalacionController.instalacion.telefono}" />
+						</div>
+						<div class="form-group">
+							<h:inputText type="text" class="form-control" id="Coordenada"
+								a:placeholder="Coordenadas"
+								value="#{instalacionController.instalacion.coordenadas}" />
+						</div>
+						<div class="form-group">
+								<label for="exampleFormControlTextarea1">Observaciones</label>
+						<h:inputTextarea
+							value="#{instalacionController.instalacion.observaciones}"
+							class="form-control" id="exampleFormControlTextarea1" rows="5" />
+						</div>
+						<div class="form-group">
+							  <label for="sel1">Tecnico:</label>  
+							<h:selectOneMenu value="#{instalacionController.instalacion.tecnico}"
+								id="txtEmpleado1">
+								<f:selectItems value="#{instalacionController.empleados}"
+									var="empleado" itemLabel="#{empleado.nombre}"
+									itemValue="#{empleado.nombre}" />
+							</h:selectOneMenu>
+						</div>
+
+						<div class="modal-footer">
+							<h:commandButton class="btn btn-primary" data-dismiss="modal"
+								value="Guardar" action="#{instalacionController.crearInstalacion()}" />
+							<h:commandButton class="btn btn-danger" data-dismiss="modal"
+								value="Cerrar" action="clientes1" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</h:form>
+
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<f:metadata>
+		<f:viewParam name="id" value="#{clienteController.id}"></f:viewParam>
+		<f:viewAction action="#{clienteController.loadData()}" />
+	</f:metadata>
+	<title>Edicion De Datos</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="resources/assets/css/table2.css" />
+	<link rel="stylesheet" href="resources/assets/css/fondo.css" />
+	<link rel="stylesheet" href="resources/assets/css/instaEdicion.css" />
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="resources/assets/js/permisos.js">
+	</script>
+</h:head>
+<body>
+
+	<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="callcenter.xhtml"><img
+				src="resources/assets/img/logo.png" /></a>
+		</div>
+		<ul class="nav navbar-nav">
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="callcenter.xhtml">Call Center <span
+					class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="registro.xhtml">Registros</a></li>
+					<li><a href="listadoInstalaciones.xhtml">Instalaciones</a></li>
+					<li><h:form>
+						</h:form></li>
+
+				</ul></li>
+
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#" onclick="acceso()">Clientes<span
+					class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="clientes1.xhtml" id="boton">Clientes</a></li>
+					<li><a href="registrarEmpleado.xhtml" id="boton12">Empleado</a></li>
+				</ul></li>
+
+		</ul>
+
+		<ul class="nav navbar-nav navbar-right">
+			<li><a> #{login.empleado.nombre}</a></li>
+			<li><a id="dep"> #{login.empleado.departamento}</a></li>
+			<li><h:form>
+					<a> <h:commandButton class="btnExit" action="#{login.logout()}"
+							value="Exit" image="./resources/assets/img/exit.png" />
+					</a>
+				</h:form></li>
+
+		</ul>
+
+	</div>
+	</nav>
+
+	<h:form>
+		<div class="container">
+			<h2></h2>
+			<div class="panel panel-default inputText div_centrado">
+				<div class="panel-heading">Editar Cliente</div>
+
+				<div class="panel-body ">
+					<div class="modal-body">
+
+						<div class="form-group col-md-12">
+
+							<h:outputLabel class="form-label" for="Cedula">Cedula *</h:outputLabel>
+							<h:inputText type="text" class="form-control" id="Cedula"
+								required="true" requiredMessage="  Campo Obligatorio"
+								a:placeholder="Cedula" redisplay="true"
+								validator="#{clienteController.validarCedula}"
+								converterMessage="Favor ingrese solo numeros."
+								value="#{clienteController.cliente.cedula}" maxlength="10">
+
+
+								<f:ajax event="blur" render="messageForUser" />
+
+							</h:inputText>
+							<h:message id="messageForUser" for="Cedula" style="color:red" />
+
+
+						</div>
+						<div class="form-group col-md-12">
+							<h:outputLabel class="form-label" for="Nombres">Nombres *</h:outputLabel>
+							<h:inputText type="text" class="form-control" id="Nombres"
+								required="true" requiredMessage="  Campo Obligatorio"
+								a:placeholder="Nombres"
+								value="#{clienteController.cliente.nombre}"
+								validator="#{clienteController.validarNombre}">
+								<f:ajax event="blur" render="messageForNom" />
+							</h:inputText>
+							<h:message id="messageForNom" for="Nombres" style="color:red" />
+						</div>
+						<div class="form-group col-md-12">
+							<h:outputLabel class="form-label" for="Apellidos">Apellidos *</h:outputLabel>
+							<h:inputText type="text" class="form-control" id="Apellidos"
+								required="true" requiredMessage="  Campo Obligatorio"
+								value="#{clienteController.cliente.apellidos}"
+								a:placeholder="Apellidos"
+								validator="#{clienteController.validarApellido}">
+								<f:ajax event="blur" render="messageForAp" />
+							</h:inputText>
+							<h:message id="messageForAp" for="Apellidos" style="color:red" />
+						</div>
+						<div class="form-group col-md-12">
+
+							<h:outputLabel for="NumContrato">Numero Contrato *</h:outputLabel>
+							<h:inputText type="text" class="form-control" id="NumContrato"
+								required="true" requiredMessage="  Campo Obligatorio"
+								value="#{clienteController.servicioEdit.numeroContrato}"
+								a:placeholder="Numero Contrato" maxlength="25">
+								<f:ajax event="blur" render="messageForNum" />
+							</h:inputText>
+							<h:message id="messageForNum" for="NumContrato" style="color:red" />
+
+						</div>
+						<div class="form-group col-md-12">
+							<h:outputLabel class="form-label" for="Convencional">Convencional</h:outputLabel>
+							<h:inputText type="text" class="form-control" id="Convencional"
+								value="#{clienteController.telefonoConveEdit.telNumero}"
+								a:placeholder="Convencional" maxlength="7"
+								validator="#{clienteController.validarTelefono}">
+								<f:ajax event="blur" render="messageForCo" />
+
+							</h:inputText>
+							<h:message id="messageForCo" for="Convencional" style="color:red" />
+						</div>
+						<div class="form-group col-md-12">
+							<h:outputLabel class="form-label" for="Celular">Celular</h:outputLabel>
+							<h:inputText type="text" class="form-control" maxlength="10"
+								id="Celular"
+								value="#{clienteController.telefonoMovilEdit.telNumero}"
+								a:placeholder="Celular"
+								validator="#{clienteController.validarTelefono}">
+								<f:ajax event="blur" render="messageForTel" />
+							</h:inputText>
+							<h:message id="messageForTel" for="Celular" style="color:red" />
+
+						</div>
+
+						<div class="form-group col-md-12">
+							<h:outputLabel class="form-label" for="DireccionPrincipal">Direccion Principal *</h:outputLabel>
+							<h:inputText type="text" class="form-control"
+								id="DireccionPrincipal" required="true"
+								requiredMessage="  Campo Obligatorio"
+								value="#{clienteController.cliente.direccionPrincipal}"
+								a:placeholder="Direccion Principal">
+								<f:ajax event="blur" render="messageForDir" />
+							</h:inputText>
+							<h:message id="messageForDir" for="DireccionPrincipal"
+								style="color:red" />
+						</div>
+						<div class="form-group col-md-12">
+							<h:outputLabel class="form-label" for="DireccionSecundaria">Direccion Secundaria</h:outputLabel>
+							<h:inputText type="text" class="form-control"
+								id="DireccionSecundaria"
+								value="#{clienteController.cliente.direccionSecundaria}"
+								a:placeholder="Direccion Secundaria" />
+						</div>
+						<div class="form-group col-md-12">
+							<h:outputLabel class="form-label" for="DireccionReferencia">Direccion Referencia</h:outputLabel>
+
+							<h:inputText type="text" class="form-control"
+								id="DireccionReferencia"
+								value="#{clienteController.cliente.direccionReferencia}"
+								a:placeholder="Direccion Referencia" />
+						</div>
+						<div class="form-group col-md-12">
+							<h:outputLabel class="form-label" for="Latitud">Latitud *</h:outputLabel>
+							<h:inputText type="text" class="form-control" id="Latitud"
+								required="true" requiredMessage="  Campo Obligatorio"
+								value="#{clienteController.cliente.latitud}" a:placeholder="Latitud"
+								validatorMessage="Latitud Invalida; ejm [-3.0075694444444445]">
+								<f:validateRegex
+									pattern="(-?[1-8]?\d(?:\.\d{1,18})?|90(?:\.0{1,18})?)" />
+
+								<f:ajax event="blur" render="messageForLatitud" />
+
+							</h:inputText>
+							<h:message id="messageForLatitud" for="Latitud" style="color:red" />
+						</div>
+						<div class="form-group col-md-12">
+							<h:outputLabel class="form-label" for="Longitud">Longitud *</h:outputLabel>
+							<h:inputText type="text" class="form-control" id="Longitud"
+								required="true" requiredMessage="  Campo Obligatorio"
+								value="#{clienteController.cliente.longitud}" a:placeholder="Longitud"
+								validatorMessage="Longitud Invalida; ejm [-78.99883888888888]">
+								<f:validateRegex
+									pattern="(-?(?:1[0-7]|[1-9])?\d(?:\.\d{1,18})?|180(?:\.0{1,18})?)" />
+
+								<f:ajax event="blur" render="messageForLongitud" />
+							</h:inputText>
+							<h:message id="messageForLongitud" for="Longitud"
+								style="color:red" />
+						</div>
+						<div class="form-group col-md-12">
+
+							<h:outputLabel for="Email">E-mail </h:outputLabel>
+							<h:inputText class="form-control" id="Email"
+								value="#{clienteController.cliente.email}" a:placeholder="Email"
+								validator="#{clienteController.validarCorreo}">
+
+								<f:ajax event="blur" render="messageForEmail" />
+							</h:inputText>
+							<h:message id="messageForEmail" for="Email" style="color:red" />
+						</div>
+
+						<div class="form-group col-md-6">
+
+							<h:outputLabel for="antenaTmp">Antena Actual</h:outputLabel>
+
+
+							<h:inputText type="text" class="form-control" id="antenaTmp"
+								value="#{clienteController.antenaTmp}" a:placeholder="Antena Actual"
+								readonly="true">
+							</h:inputText>
+
+
+						</div>
+						<div class="form-group col-md-6">
+
+
+							<h:selectOneMenu value="#{clienteController.antenaElegida}"
+								id="txtAntena">
+								<f:selectItem itemLabel="Seleccione nueva antena"
+									itemValue="#{null}" noSelectionOption="true" />
+								<f:selectItems value="#{clienteController.listadoAntenas}"
+									var="antena" itemLabel="#{antena.modelo}"
+									itemValue="#{antena.id}" />
+							</h:selectOneMenu>
+						</div>
+						<div class="form-group col-md-12"></div>
+
+						<div class="form-group col-md-6">
+
+							<h:outputLabel for="planTmp">Plan Actual</h:outputLabel>
+
+
+							<h:inputText type="text" class="form-control" id="planTmp"
+								value="#{clienteController.planTmp}" a:placeholder="Plan Actual"
+								readonly="true">
+
+
+
+							</h:inputText>
+
+
+
+						</div>
+						<div class="form-group col-md-6">
+
+							<h:selectOneMenu value="#{clienteController.planElegida}"
+								id="plan">
+								<f:selectItem itemLabel="Seleccione nuevo plan"
+									itemValue="#{null}" noSelectionOption="true" />
+								<f:selectItems value="#{clienteController.listadoPlanes}"
+									var="plan" itemLabel="#{plan.tipoPlan}" itemValue="#{plan.id}" />
+							</h:selectOneMenu>
+						</div>
+						<div class="form-group col-md-12"></div>
+
+						<div class="form-group col-md-6">
+							<h:outputLabel for="routerTmp">Router Vendido</h:outputLabel>
+
+							<h:inputText type="text" class="form-control" id="routerTmp"
+								value="#{clienteController.router}" a:placeholder="Router Vendido"
+								readonly="true">
+
+							</h:inputText>
+						</div>
+						<div class="form-group col-md-6">
+
+							<h:selectOneRadio value="#{clienteController.router}"
+								styleClass="radio-inline" style="background-color: white;"
+								id="routerVendido" required="true"
+								requiredMessage="Por favor, seleccione una opcion !">
+								<f:selectItems style="border: hidden;"
+									value="#{clienteController.opciones}" itemLabel="#{opcion}"
+									itemValue="#{opcion}">
+
+								</f:selectItems>
+
+							</h:selectOneRadio>
+						</div>
+						<div class="form-group col-md-12">
+							<h:outputLabel class="form-label" for="ip">IP *</h:outputLabel>
+							<h:inputText type="text" class="form-control" id="ip"
+								required="true" requiredMessage="  Campo Obligatorio"
+								value="#{clienteController.eqServEdit.ip}" a:placeholder="IP"
+								maxlength="16" validatorMessage="Formato Ip no valido">
+								<f:validateRegex
+									pattern="(([0-1]?[0-9]{1,2}\.)|(2[0-4][0-9]\.)|(25[0-5]\.)){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))" />
+
+
+								<f:ajax event="blur" render="messageForIp" />
+							</h:inputText>
+							<h:message id="messageForIp" for="ip" style="color:red" />
+
+						</div>
+						<div class="form-group col-md-12">
+
+
+							<h:outputLabel class="form-label" for="password">Contraseña *</h:outputLabel>
+
+							<h:inputText type="text" class="form-control" id="password"
+								required="true" requiredMessage="  Campo Obligatorio"
+								value="#{clienteController.eqServEdit.password}"
+								a:placeholder="Contraseña">
+
+								<f:ajax event="blur" render="messageForPass" />
+							</h:inputText>
+							<h:message id="messageForPass" for="password" style="color:red" />
+						</div>
+
+						<div class="form-group col-md-12">
+
+							<h:outputLabel class="form-label" for="serial">Serial *</h:outputLabel>
+
+							<h:inputText type="text" class="form-control" id="serial"
+								required="true" requiredMessage="  Campo Obligatorio"
+								value="#{clienteController.eqServEdit.serial}"
+								a:placeholder="Serial">
+								<f:ajax event="blur" render="messageForSerial" />
+							</h:inputText>
+							<h:message id="messageForSerial" for="serial" style="color:red" />
+						</div>
+
+
+						<div class="form-group col-md-12">
+							<h:outputLabel class="form-label" for="observaciones">Observaciones</h:outputLabel>
+							<h:inputTextarea type="text" class="form-control" rows="5"
+								id="observaciones"
+								value="#{clienteController.servicioEdit.observaciones}"
+								a:placeholder="Digite aqui sus observaciones" />
+
+						</div>
+					</div>
+				</div>
+
+				<!-- Modal footer -->
+				<div class="modal-footer">
+
+					<h:commandButton class="btn btn-primary" data-dismiss="modal"
+						action="#{clienteController.cargarDatos()}" value="Guardar" />
+					<h:commandButton action="clientes1" value="Cancelar"
+						class="btn btn-danger" data-dismiss="modal" />
+
+				</div>
+
+			</div>
+		</div>
+
+
+	</h:form>
+
+
+</body>
+</html>

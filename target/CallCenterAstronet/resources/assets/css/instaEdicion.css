@@ -1,0 +1,10 @@
+/*Centrado del recuadro*/
+.div_centrado{
+	margin: auto;
+	max-width: 1290px;  
+}
+
+/*Cajas mas pequenas*/
+.inputText{
+	width: 50%;
+}

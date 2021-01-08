@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head></h:head>
+
+<h:body style="margin:50px;">
+   <h2>Primefaces AutoComplete example</h2>
+    <h:form>
+        Enter Name:
+        <p:autoComplete value="#{clienteController.inputName}"
+                        maxResults="10"
+                        completeMethod="#{clienteController.getSugerencias}"/>
+
+        <p:commandButton value="Submit" icon="ui-icon-check" update=":outputPanel"/>
+    </h:form>
+    <br/><br/>
+    
+    <p:outputPanel id="outputPanel">
+        <p:outputLabel value="#{clienteController.inputName}"/>
+    </p:outputPanel>
+</h:body>
+</html>

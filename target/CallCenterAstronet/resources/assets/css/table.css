@@ -1,0 +1,182 @@
+/*
+	Color fondo: #632432;
+	Color header: 246355;
+	Color borde: 0F362D;
+	Color iluminado: 369681;
+*/
+
+/*Body parte de atras de la tabla fondo blanco*/
+.menuColor {
+	background-color: #056691;
+}
+
+/*Centrado de texto y seperaccion entre la caja de datos y el menu*/
+.centerTexto {
+	text-align: center;
+	padding: 10px;
+}
+
+.cabecera {
+	padding: 10px;
+	
+}
+
+.nuevaInstalacion{
+	background: white;
+	border: none;
+	font-style: normal;
+	font-size: 14px;
+	font-weight: normal;
+	padding: 6px;
+	
+}
+
+/*Margen entre la caja y el titulo*/
+.margenCaja {
+	padding: 20px;
+}
+
+/*Margen entre las etiquetas y la tabla*/
+#main-container {
+	margin: 10px auto;
+	width: 100%;
+}
+
+/*boton ingreso y agendar - separcion etre los dos botones*/
+.btnIn {
+	margin: 10px;
+	width: 80pt;
+}
+
+/*Ancho del modal*/
+.anchoModal {
+	/*Un tama;o de 100% para que se expanda a toda la pantalla nuestro contenedor*/
+	width: 100%;
+	/*tama;no maximo de 1000px para que no se sobrepase*/
+	max-width: 1100px;
+	/*margin para que se centre cuando se pase de los 100px*/
+	margin: 20px;
+	background: #E8ECEE;
+}
+
+/*Centrado de los botones*/
+.btnsIngre_Agen {
+	text-align: center;
+}
+
+.btnsPing {
+	text-align: right;
+	padding: 5px;
+}
+
+/*Lado Derecho boton Solicitud - añadi esto*/
+.btnSolicitud {
+	position: absolute;
+	bottom: 530px;
+	right: 80px;
+}
+
+.anchoBoton {
+		/*Un tama;o de 100% para que se expanda a toda la pantalla nuestro contenedor*/
+	width: 10%;
+	/*tama;no maximo de 1000px para que no se sobrepase*/
+	max-width: 1000px;
+	/*margin para que se centre cuando se pase de los 100px*/
+	margin: auto;
+}
+
+.colorSolicitud {
+	border-radius: 50%;
+	width: 50px;
+	height: 50px;
+}
+
+.ui-icon-excel {
+	background: url(../img/archivo.png) no-repeat top left !important;
+	
+}
+/*Hasta aqui esto para el boton de solicitud*/
+
+/*boton salir*/
+.btnExit {
+	margin: 5px;
+	width: 25pt;
+}
+
+/*boton solicitud - separcion etre los dos botones*/
+.btnIn {
+	margin: auto;
+	width: 80pt;
+}
+
+.botonBuscar {
+	height: 34px;
+}
+
+/*Color del header modal*/
+.modalHeader {
+	background-color: #048DE5;
+	height: auto;
+}
+
+/*Color de titulo y cerrado modal head*/
+h4 {
+	color: white;
+}
+
+table {
+	background-color: #E2E5E6;
+	text-align: left;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+th, td {
+	padding: 20px;
+	border: 1px solid #C4C6C8;
+	text-align: center;
+}
+
+thead {
+	background-color: #2c80c5;
+	/*Añadi aqui*/
+	border-bottom: solid 5px #0F362D;
+	color: white;
+	text-align: center;
+}
+
+.botonesPW {
+	margin: 5px;
+	width: 80px;
+}
+
+.marginBuscar {
+	margin: 5px;
+}
+
+.centroTexto {
+	align: center;
+}
+
+.icon {
+	color: white;
+}
+
+/*Boton actualizar*/
+.btnUpdate{
+	background: #EAEDED ;
+	margin: 5px;
+}
+
+/*Espacio debajo del boton actualizar*/
+.etiquetas{
+	padding: 10px;
+}
+
+/*boton listar empleado*/
+.btnEmpleado{
+	padding: 10px;
+	margin: 10px;
+	position: relative;
+	left: 20px;
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<title>Inicio de Sesion</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" type="text/css"
+		href="./resources/assets/css/login.css"></link>
+	<script type="text/javascript"
+		src="https://kit.fontawesome.com/a81368914c.js"></script>
+	<script type="text/javascript" src="resources/assets/js/mainLogin.js"></script>
+	
+	
+
+</h:head>
+<h:body>
+	<div class="container">
+		<div>
+			<img title="Logo" class="logo"
+				src="resources/assets/img/logo_astronet.png" alt="Logo" />
+		</div>
+		<div class="login-content">
+			<h:form id="loginForm">
+			  
+				<img class="avatar" src="resources/assets/img/perfil.png"
+					alt="Avatar" />
+				<h2>Login</h2>
+				<div class="input-div one">
+			
+					<div class="i">
+						<i class="fas fa-user"></i>
+					</div>
+					
+					
+					<div class="div">
+						<h:inputText a:placeholder="Usuario" class="input"
+							value="#{login.empleado.email}" required="true" id="correo"></h:inputText>
+					</div>
+				</div>
+				<div class="input-div pass">
+					<div class="i">
+						<i class="fas fa-lock"></i>
+					</div>
+					<div class="div">
+						<h:inputSecret a:placeholder="Contraseña" class="input"
+							value="#{login.empleado.password}" required="true" id="contrase">
+							</h:inputSecret>
+					</div>
+					
+				</div>
+					<div>
+					<p:growl id="growl" showDetail="true"  >
+					<p:autoUpdate></p:autoUpdate>
+					</p:growl>
+					</div>
+				
+				<div>
+				<p:commandButton action="#{login.login()}" class="btn"
+					value="Ingresar" id="login1" />
+					
+				</div>
+		
+
+			</h:form>
+		</div>
+	</div>
+
+
+</h:body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<f:metadata>
+		<f:viewParam name="id" value="#{clienteController.idR}"></f:viewParam>
+		<f:viewAction action="#{clienteController.datosRegistro()}" />
+	</f:metadata>
+	<title>Agendamiento</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="resources/assets/css/table.css" />
+	<link rel="stylesheet" href="resources/assets/css/fondo.css" />
+
+
+</h:head>
+
+	<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="callcenter.xhtml"><img
+				src="resources/assets/img/logo.png" /></a>
+		</div>
+		<ul class="nav navbar-nav">
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="callcenter.xhtml">Call Center <span
+					class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="registro.xhtml">Registros</a></li>
+				
+
+				</ul></li>
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#" onclick="acceso()">Clientes<span
+					class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="clientes1.xhtml" id="boton">Clientes</a></li>
+					<li><a href="registrarEmpleado.xhtml" id="boton12">Empleado</a></li>
+				</ul></li>
+
+		</ul>
+
+		<ul class="nav navbar-nav navbar-right">
+			<li><a> #{login.empleado.nombre}</a></li>
+			<li><a id="dep"> #{login.empleado.departamento}</a></li>
+			<li><h:form>
+					<a> <h:commandButton class="btnExit" action="#{login.logout()}"
+							value="Exit" image="./resources/assets/img/exit.png" />
+					</a>
+				</h:form></li>
+
+		</ul>
+
+	</div>
+	</nav>
+	<h:form>
+		<div class="centerTexto">
+			<h2>REVISION DE RECLAMOS</h2>
+		</div>
+		<div class="container margenCaja">
+
+			<div class="panel panel-default">
+				<div class="panel-heading ">
+					<h>Datos Cliente</h>
+				</div>
+
+				<div class="panel-body">
+
+					<div class="row">
+
+						<div class="form-group">
+							<div class="input-group marginBuscar">
+								<h:inputText class="form-control"
+									value="#{clienteController.agendamiento.fecha}"
+									a:placeholder="Fecha Hora" rendered="" />
+							</div>
+						</div>
+						<div class="form-group col-xs-6">
+							<h:inputText type="text" class="form-control" id="Nombres"
+								value="#{clienteController.registro.cliente.nombre}"
+								a:placeholder="Nombres" />
+						</div>
+						<div class="form-group col-xs-6">
+							<h:inputText type="text" class="form-control"
+								id="DireccionPrincipal"
+								value="#{clienteController.registro.cliente.direccionPrincipal}"
+								a:placeholder="Direccion Principal" />
+						</div>
+						<div class="form-group col-xs-6">
+							<h:inputText type="text" class="form-control"
+								id="DireccionSecundaria"
+								value="#{clienteController.registro.cliente.direccionSecundaria}"
+								a:placeholder="Direccion Secundaria" />
+						</div>
+						<div class="form-group col-xs-6">
+							<h:inputText type="text" class="form-control"
+								id="DireccionReferencia"
+								value="#{clienteController.registro.cliente.direccionSecundaria}"
+								a:placeholder="ID AG" />
+						</div>
+						<div class="form-group col-xs-6">
+							<h:inputText type="text" class="form-control" id="Latitud"
+								value="#{clienteController.registro.cliente.latitud}"
+								a:placeholder="Latitud" />
+						</div>
+						<div class="form-group col-xs-6">
+							<h:inputText type="text" class="form-control" id="Longitud"
+								value="#{clienteController.registro.cliente.longitud}"
+								a:placeholder="Longitud" />
+						</div>
+
+					</div>
+					<div class="form-group">
+						<label>Observaciones</label>
+						<h:inputTextarea
+							value="#{clienteController.registro.observaciones}"
+							class="form-control" id="exampleFormControlTextarea1" rows="5" />
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="form-group col-sm-6">
+			  <label for="sel1" class="etiquetas">Tecnicos:</label>   
+
+			
+        <p:selectOneMenu id="tecnico" value="#{clienteController.tecnicoElegido}">
+            <f:selectItem itemLabel="Select One" itemValue="3" />
+            <f:selectItems value="#{clienteController.tecnicos}" />
+        </p:selectOneMenu>
+			  
+			<!-- 					<h:selectOneMenu class="form-control" id="sel1" -->
+			<!-- 						value="#{clienteController.registro.empleado}"> -->
+			<!-- 						<f:selectItems value="#{clienteController.tecnicos}" var="pro1" -->
+			<!-- 							itemLabel="#{pro1.nombre}" itemValue="#{pro1.id}" /> -->
+			<!-- 							<f:selectItems value="#{pro1.id}"/> -->
+			<!-- 					</h:selectOneMenu> -->
+		</div>
+		<div class="btnsIngre_Agen">
+			<h:commandButton action="#{clienteController.ingresaVisita()}"
+				class="btn btn-primary btnIn" value="Ingresar" />
+		</div>
+
+	</h:form>
+</html>
+

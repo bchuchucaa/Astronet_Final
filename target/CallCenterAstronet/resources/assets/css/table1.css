@@ -1,0 +1,200 @@
+@charset "ISO-8859-1";
+/*
+	Color fondo: #632432;
+	Color header: 246355;
+	Color borde: 0F362D;
+	Color iluminado: 369681;
+*/
+
+/*Body parte de atras de la tabla fondo blanco*/
+body{
+	/*background-color: #632432;*/
+	font-family: Arial;
+	background: url(../img/fondo.png) no-repeat center top;
+	/*overflow: hidden;*/
+	background-size: cover;	
+}
+
+.menuColor{
+	background-color: #056691;
+}
+
+/*Centrado de texto y seperaccion entre la caja de datos y el menu*/
+.centerTexto{
+	text-align: center;
+	padding: 10px;
+}
+
+/*Margen entre la caja y el titulo*/
+.margenCaja{
+	padding: 20px;
+}
+
+/*Margen entre las etiquetas y la tabla*/
+#main-container{
+	margin: 20px auto;
+	width: 100%;
+}
+
+
+/*boton ingreso y agendar - separcion etre los dos botones*/
+.btnIn{
+	margin: 10px;
+	width: 80pt;
+}
+
+/*Ancho del modal*/
+.anchoModal{
+     /*Un tama;o de 100% para que se expanda a toda la pantalla nuestro contenedor*/
+  width: 100%;
+  /*tama;no maximo de 1000px para que no se sobrepase*/
+  max-width: 1290px;  
+  /*margin para que se centre cuando se pase de los 100px*/
+  margin: auto;
+
+}
+
+/*Centrado de los botones*/
+.btnsIngre_Agen{
+	text-align: center;
+}
+
+/*Lado Derecho boton Solicitud - añadi esto*/
+.btnSolicitud{
+	float:right;
+	text-align: right;
+	bottom: 6px;
+	position: relative;
+}
+
+/*boton solicitud - separcion etre los dos botones*/
+.btnIn{
+	margin: auto;
+	width: 80pt;
+}
+
+.botonBuscar{
+	height: 34px;
+}
+
+
+/*Color del header modal*/
+.modalHeader{
+	background-color: #048DE5;
+	height: auto;
+}
+
+/*Color de titulo y cerrado modal head*/
+h4{
+	color: white;
+}
+
+table{
+	background-color: #E2E5E6;
+	text-align: left;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+th, td{
+    padding: 20px;
+    border: 1px solid #C4C6C8;
+    text-align: center;
+    
+}
+
+thead{
+	background-color: #2c80c5;
+	/*Añadi aqui*/
+	border-bottom: solid 5px #0F362D;
+	color: white;
+	text-align: center;
+}
+
+.botonesPW{
+	margin: 5px;
+	width: 80px;
+}
+
+.marginBuscar{
+	margin: 5px;
+}
+
+.centroTexto{
+	align: center;
+}
+
+.icon{
+	color: white;
+}
+
+/*NavBar*/
+.navbar-default {
+  background-color: #275ca8;
+  border-color: #275ca8;
+}
+.navbar-default .navbar-brand {
+  color: #ecf0f1;
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+  color: #fbfbfc;
+}
+.navbar-default .navbar-text {
+  color: #ecf0f1;
+}
+.navbar-default .navbar-nav > li > a {
+  color: #ecf0f1;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #fbfbfc;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  color: #fbfbfc;
+  background-color: #275ca8;
+}
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  color: #fbfbfc;
+  background-color: #275ca8;
+}
+.navbar-default .navbar-toggle {
+  border-color: #275ca8;
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+  background-color: #275ca8;
+}
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #ecf0f1;
+}
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+  border-color: #ecf0f1;
+}
+.navbar-default .navbar-link {
+  color: #ecf0f1;
+}
+.navbar-default .navbar-link:hover {
+  color: #fbfbfc;
+}
+
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #ecf0f1;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #fbfbfc;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #fbfbfc;
+    background-color: #275ca8;
+  }
+}
