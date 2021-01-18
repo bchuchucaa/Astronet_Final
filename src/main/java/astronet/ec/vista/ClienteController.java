@@ -1655,7 +1655,8 @@ public class ClienteController implements Serializable {
 		teleMovil.setTelNumero(this.celular);
 		teleMovil.setCliente(cli);
 		telOn.guardar(teleMovil);
-
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "EL CLIENTE SE GUARDO EXITOSAMENTE"));
 		return null;
 	}
 
@@ -2156,7 +2157,7 @@ public class ClienteController implements Serializable {
 					new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "EL REGISTRO SE GUARDO EXITOSAMENTE"));
 			
 			init();
-			return "registro?faces-redirect=true";
+			return null;
 
 		} catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(null,

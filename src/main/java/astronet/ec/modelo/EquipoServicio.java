@@ -5,16 +5,24 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "EquipoServicio")
+@SequenceGenerator(
+	    name="EquipoServicioSeq",
+	    sequenceName = "EquipoServicio_SEQ",
+	    initialValue = 6000,
+	    allocationSize = 1
+)
 
 public class EquipoServicio implements Serializable {
 
@@ -24,9 +32,9 @@ public class EquipoServicio implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "equipoServi_id")
-	@GeneratedValue(generator = "secuenciaEquiServ")
-	@SequenceGenerator(name = "secuenciaEquiServ", initialValue = 14)
+	@Column(name = "equi_serv_id")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "EquipoServicioSeq")
+	@NotNull
 	private int id;
 
 	@Column(name = "equipoServi_serial")
