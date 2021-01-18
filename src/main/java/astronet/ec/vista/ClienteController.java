@@ -973,6 +973,25 @@ public class ClienteController implements Serializable {
 			regon.guardar(registro);
 			System.out.println("imprime esto:   " + registro.getFechaHora());
 			init();
+			
+			
+			/*
+			 * System.out.println("Llegando:::::111");
+			cliente.setId(registro.getCliente().getId());
+			registro.getCliente().setId(cliente.getId());
+			System.out.println("cliente id " + cliente.getId());
+			empleado.setId(registro.getEmpleado().getId());
+			registro.getEmpleado().setId(codigo);
+			System.out.println("imprime esto:   " + registro.getFechaHora());					
+			Cliente cli = clion.getCliente(registro.getCliente().getId());
+			Empleado em= empon.getEmpleado(codigo);
+			registro.setCliente(cli);
+			registro.setEmpleado(em);
+			System.out.println("Se guardo correcto correctamente");
+			init();
+			 * 
+			 * 
+			 */
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -1992,7 +2011,6 @@ public class ClienteController implements Serializable {
 
 	public List<String> getSugerencias(String enteredValue) {
 		List<String> coincidencias = new ArrayList<String>();
-		System.out.println("NOMBRE BUSCADO");
 		System.out.println(enteredValue);
 		Cliente clie;
 
@@ -2006,7 +2024,6 @@ public class ClienteController implements Serializable {
 			try {
 				if (nombres.toLowerCase().startsWith(enteredValue.toLowerCase())
 						|| apellido.toLowerCase().startsWith(enteredValue.toLowerCase())) {
-					System.out.println("Ingresa");
 
 					coincidencias.add(nombre);
 				}
@@ -2022,45 +2039,32 @@ public class ClienteController implements Serializable {
 	}
 
 	public String findByNames() {
-		System.out.println("THIS IS THE IDENTIFICACION OF CLIENT " + inputName);
 
 		try {
-			// String nombre=inputName.substring(inputName.lastIndexOf("/") + 1);
-			// String apellido=inputName.split('/');
 			String[] credenciales = inputName.split("/");
 			String nombres = credenciales[1];
 			String apellidos = credenciales[0];
-			System.out.println(nombres);
-			System.out.println(apellidos);
-			System.out.println(inputName);
-			// cliente = clion.getClienteCedula(inputName);
 			cliente = clion.buscarNombreApellido(nombres, apellidos);
-			System.out.println(cliente.getCedula());
 			setTelefonos(telOn.getTelefonos(cliente));
-			for (Telefono telefono : telefonos) {
-				System.out.println(telefono.getTipoTelefono());
-				System.out.println("-----kiko----");
-			}
+			
 			registro.setIdClienteTemp(cliente.getId());
 			cliente.setTelefonos(telefonos);
 			fechaHora();
 			// datoR();
 			setNuevoTelefono(null);
 			setNuevoTipoTelefono(null);
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "Credenciales Correctas"));
+			
 
 		} catch (Exception e) {
 			// TODO: handle exception
-			System.out.println("NO HAY TEXTO ");
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "NO SE PUDO ENCONTRAR AL CLIENTE"));
 		}
 		return null;
 
 	}
 
 	public void newTelefono(Telefono telefono) {
-		System.out.println("Telefono de parametro " + telefono.getTelNumero());
-		System.out.println("Telefono de parametro " + telefono.getTipoTelefono());
 		this.nuevoTelefono = telefono;
 		nuevoTelefono.setCliente(cliente);
 		if (nuevoTelefono.getTipoTelefono() != "" && nuevoTelefono.getTelNumero() != ""
@@ -2070,10 +2074,9 @@ public class ClienteController implements Serializable {
 				nuevoTelefono.setId(telOn.getMaxId() + 1);
 				telOn.createTelefono(nuevoTelefono);
 
-				System.out.println("ALL RIGHT BABE");
 			} catch (Exception e) {
-				System.out.println("PILAS PARA AGREGAR EL NUEVO TELEFONO " + nuevoTelefono.getTelNumero());
-
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "NO SE PUDO AGREGAR EL TELEFONO"));
 			}
 			this.nuevoTelefono = new Telefono();
 		}
@@ -2100,20 +2103,19 @@ public class ClienteController implements Serializable {
 
 	public void ingresaVisita() {
 		System.out.println(tecnicoElegido);
-		System.out.println("************entro**************");
+		System.out.println("***********entro*************");
 		empleado = empon.getEmpleadobyName(tecnicoElegido);
 
-		System.out.println("************id**************");
+		System.out.println("***********id*************");
 		System.out.println(empleado.getId());
-		System.out.println("************salio**************");
+		System.out.println("***********salio*************");
 		System.out.println("Id del cliente" + registro.getCliente().getId());
 		Cliente cli = clion.getCliente(registro.getCliente().getId());
 		Visita g = new Visita(cli, registro, empleado);
 		visitaOn.guardar(g);
 		System.out.println("Se guardo correcto correctamente");
 	}
-
-	public void cargarDatosRegistro1(int codigo) {
+	public String cargarDatosRegistro1(int codigo) {
 		try {
 			System.out.println("Llegando:::::111");
 			cliente.setId(registro.getCliente().getId());
@@ -2127,17 +2129,47 @@ public class ClienteController implements Serializable {
 			registro.setCliente(cli);
 			registro.setEmpleado(em);
 			regon.guardar(registro);
+			/*
+			 * 
+			 * System.out.println("Llegando:::::111");
+			cliente.setId(registro.getCliente().getId());
+			registro.getCliente().setId(cliente.getId());
+			System.out.println("cliente id " + cliente.getId());
+		//	empleado.setId(registro.getEmpleado().getId());
+		//	registro.getEmpleado().setId(codigo);
+			System.out.println("imprime esto:   " + registro.getFechaHora());					
+			Cliente cli = clion.getCliente(registro.getCliente().getId());
+			Empleado em= empon.getEmpleado(codigo);
+			registro.setCliente(cli);
+			registro.setEmpleado(em);
+			System.out.println("Se guardo correcto correctamente");
+			init();
+			 * 
+			 * 
+			 * 
+			 * 
+			 */
 
 //			Visita g = new Visita(cli, registro, empleado);
 //			visitaOn.guardar(g);
-			System.out.println("Se guardo correcto correctamente");
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "EL REGISTRO SE GUARDO EXITOSAMENTE"));
+			
 			init();
+			return "registro?faces-redirect=true";
 
 		} catch (Exception e) {
-			// TODO: handle exception
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "NO SE PUDO GUARDAR EL REGISTRO"));
 		}
+		return null;
 	}
 
+	public String cambioTecnico(int visita,int registro,int clientito) {
+		System.out.println("cambioTecnico?faces-redirect=true&id="+visita+"&id2="+registro+ "&id3="+clientito);
+		return "cambioTecnico?faces-redirect=true&id="+visita+"&id2="+registro+ "&id3="+clientito;
+	}
+	
 	public List<Cliente> getFiltradoCliente() {
 		return filtradoCliente;
 	}

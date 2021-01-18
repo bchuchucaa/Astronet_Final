@@ -31,16 +31,20 @@
 	width: 10px;
 }
 
-.columnacontacto {
-	width: 10px;
-}
-
 .dialogo {
 	
 }
 
 div.ui-dialog-content.ui-widget-content {
 	width: 500px;
+}
+
+.beditar {
+	background-color: green;
+}
+
+body .ui-staticmessage.ui-message {
+	width: 100%;
 }
 </style>
 
@@ -157,7 +161,7 @@ div.ui-dialog-content.ui-widget-content {
 									class="form-control" id="exampleFormControlTextarea11" rows="5" />
 							</div>
 							<div class="form-group">
-								  <label for="sel1">Tecnico:</label>  
+								  <label for="sel1">Tecnico:</label>  
 								<h:selectOneMenu
 									value="#{clienteController.instalacion.tecnico}"
 									id="txtEmpleado12345">
@@ -271,19 +275,19 @@ div.ui-dialog-content.ui-widget-content {
 											#{cliente.apellidos}
 												</h:column>
 
-						<h:column>
+						<h:column >
 							<f:facet name="header" data-field="direccion"
 								data-sortable="true">Direccion</f:facet>
-							<h:outputText value="PRINCIPAL" />
-
+							<b>DIR.PRINCIPAL</b>
 							<h:inputText class="cabecera"
 								value="#{cliente.direccionPrincipal}" />
-							<br />
-							<h:outputText value="SECUNDARIA" />
+							
+							<br></br>
+					<b>D.SECUNDARIA</b>
 							<h:inputText class="cabecera"
-								value="#{cliente.direccionSecundaria}" />
-							<br />
-							<h:outputText value="REFERENCIA" />
+								value="#{cliente.direccionSecundaria}" />							
+							<br></br>
+							<b>D.REFERENCIA</b>
 							<h:inputText class="cabecera"
 								value="#{cliente.direccionReferencia}" />
 						</h:column>
@@ -316,9 +320,8 @@ div.ui-dialog-content.ui-widget-content {
 							<h:panelGrid columns="1" cellpadding="1" style="width:40%">
 
 								<h:commandButton value="EDITAR" type="button"
-									onclick="PF('dlg1').show();" class="btn btn-primary btnIn">
+									onclick="PF('dlg1').show();" class="btn btn-warning">
 
-									<span class="glyphicon glyphicon-pencil"></span>
 								</h:commandButton>
 
 							</h:panelGrid>
@@ -377,33 +380,37 @@ div.ui-dialog-content.ui-widget-content {
 
 
 				<div class="form-group col-sm-6">
-					  <label for="sel1" class="etiquetas">Problema:</label>     
-					<h:selectOneMenu class="form-control" id="sel1"
-						value="#{clienteController.registro.problema}">
-						<f:ajax execute="txtCliente1"
-							listener="#{clienteController.consultarCliente()}"
-							render="datosPersona123" />
-						<f:selectItems value="#{clienteController.problemas1}" var="pro1"
-							itemLabel="#{pro1.carLabel}" itemValue="#{pro1.carLabel}" />
-					</h:selectOneMenu>
-				</div>
+						  <label for="sel1" class="etiquetas">Problema:</label>     
+						<h:selectOneMenu class="form-control" id="sel1"
+							value="#{clienteController.registro.problema}">
+													<f:ajax execute="txtCliente1" listener="#{clienteController.consultarCliente()}" render="datosPersona123"/> 
+							<f:selectItems value="#{clienteController.problemas1}" var="pro1"
+								itemLabel="#{pro1.carLabel}" itemValue="#{pro1.carLabel}" />
+						</h:selectOneMenu>
+					</div>
 
 
 				<div class="form-group col-sm-6">
-					  <label for="sel1" class="etiquetas">Acción:</label>     
-					<h:selectOneMenu class="form-control" id="selAc"
-						value="#{clienteController.registro.accion}">
-						<f:selectItems value="#{clienteController.accion}" var="pro1"
-							itemLabel="#{pro1.carLabel}" itemValue="#{pro1.carLabel}" />
-					</h:selectOneMenu>
-				</div>
+						  <label for="sel1" class="etiquetas">Acción:</label>     
+						<h:selectOneMenu class="form-control" id="selAc"
+							value="#{clienteController.registro.accion}">
+							<f:selectItems value="#{clienteController.accion}" var="pro1"
+								itemLabel="#{pro1.carLabel}" itemValue="#{pro1.carLabel}" />
+						</h:selectOneMenu>
+					</div>
 				<div class="form-group cabecera">
-					<label for="exampleFormControlTextarea1">Observaciones</label>
-					<h:inputTextarea
-						value="#{clienteController.registro.observaciones}"
-						class="form-control" id="exampleFormControlTextarea1" rows="5">
-					</h:inputTextarea>
-				</div>
+						<label for="exampleFormControlTextarea1">Observaciones</label>
+						<h:inputTextarea
+							value="#{clienteController.registro.observaciones}"
+							class="form-control" id="exampleFormControlTextarea1" rows="5">
+						</h:inputTextarea>
+					</div>
+					<div class="btnsIngre_Agen">
+			<p:commandButton
+				action="#{clienteController.cargarDatosRegistro1(empleadoControllerBean.idUser)}"
+				class="btn btn-primary btnIn" value="Ingresar" />
+
+		</div>
 
 
 			</div>
@@ -415,20 +422,15 @@ div.ui-dialog-content.ui-widget-content {
 	</h:form>
 
 <div>
-<h:form>
-		<div class="btnsIngre_Agen">
-			<p:commandButton
-				action="#{clienteController.cargarDatosRegistro1(empleadoControllerBean.idUser)}"
-				class="btn btn-primary btnIn" value="Ingresar" />
 
-		</div>
+		
 
-	</h:form>
+	
 
 </div>
 	
-	<p:dialog header="Editar telefonos" widgetVar="dlg1" minHeight="40"
-		styleClass="dialogo">
+	<p:dialog header="EDITAR TELEFONOS" widgetVar="dlg1" minHeight="40"
+		styleClass="dialogo" showEffect="explode" hideEffect="bounce">
 
 		<h:form id="form_pop1">
 
@@ -447,26 +449,32 @@ div.ui-dialog-content.ui-widget-content {
 				<p:column>
 					<p:commandButton value="Editar" update=":text:goku"
 						action="#{telefonoController.editTelefono(t.id,t.telNumero)}"
-						styleClass="btn btn-primary" />
+						styleClass="btn btn-warning" />
 				</p:column>
 				<p:column>
 					<p:commandButton value="Eliminar" update=":text:goku"
 						action="#{telefonoController.deleteTelefono(t.id)}"
-						styleClass="btn btn-primary" />
+						styleClass="btn btn-danger" />
 				</p:column>
 
 
 			</p:dataTable>
 			<h:commandButton value="Salir" render="text"
-				styleClass="btn btn-primary">
+				styleClass="btn btn-danger"  style="margin-left:60%;width:40%;">
 
 			</h:commandButton>
 		</h:form>
 		<h:form id="formnuevo">
-			<h3>Nuevo telefono</h3>
-			<h:outputText value="numero" />
-			<h:inputText value="#{telefonoController.nuevoNumero}" size="10" />
-			<h:outputText value="Tipo" />
+			<div style="background-color: #b7d8b7; margin-top: 1%;">
+				<p>
+					<b>INFO:</b>Agrega un nuevo telefono aqui..!
+				</p>
+			</div>
+			<b>NUMERO</b>
+			<h:inputText value="#{telefonoController.nuevoNumero}" a:placeholder="ej.099XXXXXXX" size="10"
+				onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" />
+			
+			<b>TIPO</b>
 
 
 
@@ -478,7 +486,7 @@ div.ui-dialog-content.ui-widget-content {
 
 			<h:commandButton value="Guardar" render="text"
 				action="#{telefonoController.newTelefono()}"
-				styleClass="btn btn-primary">
+				styleClass="btn btn-success">
 				<f:param name="action" value="#{clienteController.cliente.cedula}" />
 
 			</h:commandButton>
