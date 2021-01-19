@@ -85,6 +85,10 @@ public Registro consultarRegistro(int codigoRegistro) throws Exception {
 public void actualizar(Registro reg) {
 	regdao.update(reg);
 }
+//TENEMEC
+public List<Registro> SsolucionadosF() {
+	return regdao.solucionados();
+}
 
 
 }

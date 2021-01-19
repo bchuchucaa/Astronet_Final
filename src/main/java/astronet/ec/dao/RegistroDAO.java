@@ -78,6 +78,16 @@ public class RegistroDAO {
 		List<Registro> registros = q.getResultList();
 		return registros;
 	}
+	//TENE MECO
+public List<Registro> solucionados() {
+		
+		String estado="SOLUCIONADOF";
+		String jpql = "SELECT reg FROM Registro reg WHERE reg.accion = :a";
+		Query q = em.createQuery(jpql, Registro.class);
+		q.setParameter("a", estado);
+		List<Registro> registros = q.getResultList();
+		return registros;
+	}
 	
 
 	

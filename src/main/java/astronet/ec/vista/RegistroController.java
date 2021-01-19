@@ -39,7 +39,7 @@ public class RegistroController{
 	private String empleados1;
 	private int codigoCliente;
 	private int codigoEmpleado;
-	
+	private List<Registro> registrossolucionados;
 
 
 	@Inject
@@ -76,6 +76,7 @@ public class RegistroController{
 		clientes = clion.getListadoCliente();
 		registros=regon.getListadoRegistro();
 		registrosvisita=regon.listadoRegistrosVT();
+		registrossolucionados=regon.SsolucionadosF();
 		
 	}
 
@@ -296,6 +297,17 @@ public class RegistroController{
 	public void dato() {
 	
 	}
+
+	public List<Registro> getRegistrossolucionados() {
+		return registrossolucionados;
+	}
+
+	public void setRegistrossolucionados(List<Registro> registrossolucionados) {
+		this.registrossolucionados = registrossolucionados;
+	}
+	
+	
 	
 	
 }
+ 

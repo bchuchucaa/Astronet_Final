@@ -60,6 +60,26 @@
 							rendered="#{usuarioBean.empleadoUser.rolEmpleado.nombre == 'CALL CENTER' || usuarioBean.empleadoUser.rolEmpleado.nombre == 'TECNICO OFICINA' || usuarioBean.empleadoUser.rolEmpleado.nombre == 'ADMINISTRADOR'}">
 							<f:param name="id" value="#{usuarioBean.idUser}" />
 						</h:link></li>
+						
+						<li><h:link outcome="listadoVisitaTecnica"
+							value="Visitas Tecnicas"
+							rendered="#{usuarioBean.empleadoUser.rolEmpleado.nombre == 'CALL CENTER' || usuarioBean.empleadoUser.rolEmpleado.nombre == 'TECNICO OFICINA' || usuarioBean.empleadoUser.rolEmpleado.nombre == 'ADMINISTRADOR'}">
+							<f:param name="id" value="#{usuarioBean.idUser}" />
+						</h:link></li>
+						
+						<li><h:link outcome="listadoTecnicosAsignados"
+							value="Verificar Tecnicos Asignados"
+							rendered="#{usuarioBean.empleadoUser.rolEmpleado.nombre == 'CALL CENTER' || usuarioBean.empleadoUser.rolEmpleado.nombre == 'TECNICO OFICINA' || usuarioBean.empleadoUser.rolEmpleado.nombre == 'ADMINISTRADOR'}">
+							<f:param name="id" value="#{usuarioBean.idUser}" />
+						</h:link></li>
+						
+						<li><h:link outcome="listadoSolucionadoF"
+							value="Verificar Reclamos Solucionados"
+							rendered="#{usuarioBean.empleadoUser.rolEmpleado.nombre == 'CALL CENTER' || usuarioBean.empleadoUser.rolEmpleado.nombre == 'TECNICO OFICINA' || usuarioBean.empleadoUser.rolEmpleado.nombre == 'ADMINISTRADOR'}">
+							<f:param name="id" value="#{usuarioBean.idUser}" />
+						</h:link></li>
+						
+						
 
 
 				</ul></li>

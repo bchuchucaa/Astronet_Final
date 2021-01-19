@@ -103,7 +103,7 @@ public class ClienteController implements Serializable {
 	private String ip;
 	
 	private String tipoServicio;
-	
+	private String ipcallcenter;
 	
 
 	private String password;
@@ -230,6 +230,17 @@ public class ClienteController implements Serializable {
 
 		System.out.println("Si tomoo las antenaas" + listadoAntenas.size());
 		listaSugerencias = new ArrayList<String>();
+		this.ipcallcenter="";
+		
+	}
+
+	
+	public String getIpcallcenter() {
+		return ipcallcenter;
+	}
+
+	public void setIpcallcenter(String ipcallcenter) {
+		this.ipcallcenter = ipcallcenter;
 	}
 
 	public List<Agendamiento> getAgendamientos() {
@@ -857,6 +868,8 @@ public class ClienteController implements Serializable {
 				}
 				registro.setIdClienteTemp(cliente.getId());
 				cliente.setTelefonos(telefonos);
+				setIpcallcenter(returnIp(cliente.getId()));
+				System.out.println("esta es la ip "+this.ipcallcenter);
 				fechaHora();
 
 				// datoR();
@@ -874,6 +887,7 @@ public class ClienteController implements Serializable {
 		}
 		System.out.println("veniii" + cliente.getCedula());
 		System.out.println("q ha psado cabeza" + empleado.getId());
+		
 		return null;
 
 	}
@@ -921,6 +935,8 @@ public class ClienteController implements Serializable {
 
 		try {
 			clion.guardar(cliente);
+			telOn.guardar(nuevoTelefono);	
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "EL CLIENTE FUE ACTUALIZADO :) "));
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -2050,9 +2066,11 @@ public class ClienteController implements Serializable {
 			
 			registro.setIdClienteTemp(cliente.getId());
 			cliente.setTelefonos(telefonos);
+			setIpcallcenter(returnIp(cliente.getId()));
+			System.out.println("esta es la ip "+this.ipcallcenter);
 			fechaHora();
 			// datoR();
-			setNuevoTelefono(null);
+			setNuevoTelefono(null);			
 			setNuevoTipoTelefono(null);
 			
 
