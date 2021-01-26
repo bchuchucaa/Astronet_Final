@@ -120,30 +120,7 @@
 							<h:message id="messageForNum" for="NumContrato" style="color:red" />
 
 						</div>
-						<div class="form-group col-md-12">
-							<h:outputLabel class="form-label" for="Convencional">Convencional</h:outputLabel>
-							<h:inputText type="text" class="form-control" id="Convencional"
-								value="#{clienteController.telefonoConveEdit.telNumero}"
-								a:placeholder="Convencional" maxlength="7"
-								validator="#{clienteController.validarTelefono}">
-								<f:ajax event="blur" render="messageForCo" />
-
-							</h:inputText>
-							<h:message id="messageForCo" for="Convencional" style="color:red" />
-						</div>
-						<div class="form-group col-md-12">
-							<h:outputLabel class="form-label" for="Celular">Celular</h:outputLabel>
-							<h:inputText type="text" class="form-control" maxlength="10"
-								id="Celular"
-								value="#{clienteController.telefonoMovilEdit.telNumero}"
-								a:placeholder="Celular"
-								validator="#{clienteController.validarTelefono}">
-								<f:ajax event="blur" render="messageForTel" />
-							</h:inputText>
-							<h:message id="messageForTel" for="Celular" style="color:red" />
-
-						</div>
-
+					
 						<div class="form-group col-md-12">
 							<h:outputLabel class="form-label" for="DireccionPrincipal">Direccion Principal *</h:outputLabel>
 							<h:inputText type="text" class="form-control"

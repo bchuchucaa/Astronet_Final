@@ -75,9 +75,9 @@ public class AgendamientoController {
 		return registro;
 	}
 
-	public String editarRegistro(int codigo) {
+	public String editarRegistro(int codigo, int empleado) {
 		
-		return "solucionar?faces-redirect=true&id=" + codigo;
+		return "solucionar?faces-redirect=true&id=" + codigo+"&id2="+empleado ;
 	}
 
 	public String visita(int codigore) {

@@ -20,12 +20,6 @@
 	<link rel="stylesheet" href="resources/assets/css/table1.css" />
 	<link rel="stylesheet" href="resources/assets/css/table.css" />
 	<link rel="stylesheet" href="resources/assets/css/fondo.css" />
-
-
-
-
-
-
 	<style>
 .columnacontacto {
 	width: 10px;
@@ -64,7 +58,6 @@ body .ui-staticmessage.ui-message {
 				</h:link>
 			</h:form>
 		</div>
-
 		<ul class="nav navbar-nav navbar-right">
 			<li><a> #{empleadoControllerBean.empUser.nombre}</a></li>
 			<li><a id="dep">
@@ -161,7 +154,7 @@ body .ui-staticmessage.ui-message {
 									class="form-control" id="exampleFormControlTextarea11" rows="5" />
 							</div>
 							<div class="form-group">
-								  <label for="sel1">Tecnico:</label>  
+								<label for="sel1">Tecnico:</label>
 								<h:selectOneMenu
 									value="#{clienteController.instalacion.tecnico}"
 									id="txtEmpleado12345">
@@ -275,17 +268,17 @@ body .ui-staticmessage.ui-message {
 											#{cliente.apellidos}
 												</h:column>
 
-						<h:column >
+						<h:column>
 							<f:facet name="header" data-field="direccion"
 								data-sortable="true">Direccion</f:facet>
 							<b>DIR.PRINCIPAL</b>
 							<h:inputText class="cabecera"
 								value="#{cliente.direccionPrincipal}" />
-							
+
 							<br></br>
-					<b>D.SECUNDARIA</b>
+							<b>D.SECUNDARIA</b>
 							<h:inputText class="cabecera"
-								value="#{cliente.direccionSecundaria}" />							
+								value="#{cliente.direccionSecundaria}" />
 							<br></br>
 							<b>D.REFERENCIA</b>
 							<h:inputText class="cabecera"
@@ -340,7 +333,7 @@ body .ui-staticmessage.ui-message {
 						<h:column>
 							<f:facet name="header" data-field="Nombres" data-sortable="true">Direccion IP</f:facet>
 
-							<h:outputText  value="#{clienteController.ipcallcenter}"></h:outputText>
+							<h:outputText value="#{clienteController.ipcallcenter}"></h:outputText>
 
 
 						</h:column>
@@ -366,69 +359,49 @@ body .ui-staticmessage.ui-message {
 				</div>
 
 				<div class="form-group col-sm-5">
-					<div class="input-group marginBuscar">
-						<h:inputText class="form-control"
-							value="#{clienteController.registro.idClienteTemp}"
-							a:placeholder="clid" id="txtCliente1" rendered="">
-						</h:inputText>
-						<h:panelGroup id="datosPersona123">
-							<h:message for="txtCliente1" rendered="" />
-							#{clienteController.registro.cliente.nombre}
-					</h:panelGroup>
+					<div class="input-group marginBuscar">	
+						
 					</div>
 				</div>
 
-
-				<div class="form-group col-sm-6">
-						  <label for="sel1" class="etiquetas">Problema:</label>     
+						<div class="form-group col-sm-6">
+						  <label for="sel1" class="etiquetas">Problema:</label>     
 						<h:selectOneMenu class="form-control" id="sel1"
-							value="#{clienteController.registro.problema}">
-													<f:ajax execute="txtCliente1" listener="#{clienteController.consultarCliente()}" render="datosPersona123"/> 
-							<f:selectItems value="#{clienteController.problemas1}" var="pro1"
-								itemLabel="#{pro1.carLabel}" itemValue="#{pro1.carLabel}" />
+							value="#{clienteController.problemaElegido}">
+							<f:selectItems  value="#{clienteController.ejemploLista}" />					
 						</h:selectOneMenu>
-					</div>
-
+						</div>
 
 				<div class="form-group col-sm-6">
-						  <label for="sel1" class="etiquetas">Acción:</label>     
-						<h:selectOneMenu class="form-control" id="selAc"
-							value="#{clienteController.registro.accion}">
-							<f:selectItems value="#{clienteController.accion}" var="pro1"
-								itemLabel="#{pro1.carLabel}" itemValue="#{pro1.carLabel}" />
-						</h:selectOneMenu>
-					</div>
+					<label for="sel1" class="etiquetas">Acción:</label>
+					<h:selectOneMenu class="form-control" id="selAc"
+						value="#{clienteController.registro.accion}">
+						<f:selectItems value="#{clienteController.accion}" var="pro1"
+							itemLabel="#{pro1.carLabel}" itemValue="#{pro1.carLabel}" />
+					</h:selectOneMenu>
+				</div>
+
+
 				<div class="form-group cabecera">
-						<label for="exampleFormControlTextarea1">Observaciones</label>
-						<h:inputTextarea
-							value="#{clienteController.registro.observaciones}"
-							class="form-control" id="exampleFormControlTextarea1" rows="5">
-						</h:inputTextarea>
-					</div>
-					<div class="btnsIngre_Agen">
-			<p:commandButton
-				action="#{clienteController.cargarDatosRegistro1(empleadoControllerBean.idUser)}"
-				class="btn btn-primary btnIn" value="Ingresar" />
+					<label for="exampleFormControlTextarea1">Observaciones</label>
+					<h:inputTextarea
+						value="#{clienteController.registro.observaciones}"
+						class="form-control" id="exampleFormControlTextarea1" rows="5">
+					</h:inputTextarea>
+				</div>
+				<div class="btnsIngre_Agen">
+					<p:commandButton
+						action="#{clienteController.cargarDatosRegistro1(empleadoControllerBean.idUser,clienteController.cliente.id)}"
+							class="btn btn-primary btnIn" value="Ingresar" render="text"
+					 />
 
-		</div>
-
-
+				</div>
 			</div>
-
 		</div>
-
-
-
 	</h:form>
 
-<div>
+	<div></div>
 
-		
-
-	
-
-</div>
-	
 	<p:dialog header="EDITAR TELEFONOS" widgetVar="dlg1" minHeight="40"
 		styleClass="dialogo" showEffect="explode" hideEffect="bounce">
 
@@ -460,7 +433,7 @@ body .ui-staticmessage.ui-message {
 
 			</p:dataTable>
 			<h:commandButton value="Salir" render="text"
-				styleClass="btn btn-danger"  style="margin-left:60%;width:40%;">
+				styleClass="btn btn-danger" style="margin-left:60%;width:40%;">
 
 			</h:commandButton>
 		</h:form>
@@ -471,9 +444,10 @@ body .ui-staticmessage.ui-message {
 				</p>
 			</div>
 			<b>NUMERO</b>
-			<h:inputText value="#{telefonoController.nuevoTipoTelefono}" a:placeholder="ej.099XXXXXXX" size="10"
+			<h:inputText value="#{telefonoController.nuevoTipoTelefono}"
+				a:placeholder="ej.099XXXXXXX" size="10"
 				onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" />
-			
+
 			<b>TIPO</b>
 
 
@@ -499,6 +473,4 @@ body .ui-staticmessage.ui-message {
 		</p:dataTable>
 	</h:form>
 </body>
-
-
 </html>

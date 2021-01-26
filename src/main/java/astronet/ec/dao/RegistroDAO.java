@@ -71,9 +71,20 @@ public class RegistroDAO {
 		return clientes;
 	}
 	
+	public List<Registro> Chequeo(int clienteid) {
+		boolean estado= true;
+		//String estado="VISITA TECNICA";
+		String jpql = "SELECT reg FROM Registro reg WHERE reg.chequeo = "+estado+
+				" "+ " AND reg.cliente=" + clienteid;
+		Query q = em.createQuery(jpql, Registro.class);
+		//q.setParameter("a", clienteid);
+		//q.setParameter("b", estado);
+	    List<Registro> registros = q.getResultList();
+		return registros;				
+	}
+	
 	public List<Registro> listarRegistros() {
-		String jpql = "SELECT reg FROM Registro reg ORDER BY\n"
-				+ "        reg_id";
+		String jpql = "SELECT reg FROM Registro reg ORDER BY\n reg_id ASC";
 		Query q = em.createQuery(jpql, Registro.class);
 		List<Registro> registros = q.getResultList();
 		return registros;

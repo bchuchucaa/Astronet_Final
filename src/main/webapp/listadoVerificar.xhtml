@@ -147,18 +147,18 @@
 							<f:facet name="header">Acciones</f:facet>
 							<h:column>
 								<h:form>
-								<!-- 
-									<h:commandButton class="btn btn-primary btnIn"
-										action="#{agendamientoController.editarRegistro(agendamiento.id)}"
-										value="Revisar" immediate="true" /> -->
+- 								
+ 									<h:commandButton class="btn btn-primary btnIn" 
+ 										action="#{agendamientoController.editarRegistro(agendamiento.id,agendamiento.empleado.id)}" 
+ 										value="Revisar" immediate="true" /> 
 
 
-									<h:button class="btn btn-primary btnIn" outcome="solucionar"
-										value="Revisar">
-										<f:param name="id" value="#{agendamiento.id}" />
-										<f:param name="idUser"
-											value="#{empleadoControllerBean.idUser}" />
-									</h:button>
+<!-- 									<h:button class="btn btn-primary btnIn" outcome="solucionar" -->
+<!-- 										value="Revisar"> -->
+<!-- 										<f:param name="id" value="#{agendamiento.id}" /> -->
+<!-- 										<f:param name="idUser" -->
+<!-- 											value="#{empleadoControllerBean.idUser}" /> -->
+<!-- 									</h:button> -->
 								</h:form>
 							</h:column>
 						</h:column>

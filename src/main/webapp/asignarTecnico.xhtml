@@ -10,7 +10,7 @@
 		<f:viewParam name="id" value="#{clienteController.idR}"></f:viewParam>
 		<f:viewAction action="#{clienteController.datosRegistro()}" />
 	</f:metadata>
-	<title>Agendamiento</title>
+	<title>Asignar Tecnico</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -62,86 +62,16 @@
 	</nav>
 	<h:form>
 		<div class="centerTexto">
-			<h2>REVISION DE RECLAMOS</h2>
-		</div>
-		<div class="container margenCaja">
-
-			<div class="panel panel-default">
-				<div class="panel-heading ">
-					<h>Datos Cliente</h>
-				</div>
-
-				<div class="panel-body">
-
-					<div class="row">
-
-						<div class="form-group">
-							<div class="input-group marginBuscar">
-								<h:inputText class="form-control"
-									value="#{clienteController.agendamiento.fecha}"
-									a:placeholder="Fecha Hora" rendered="" />
-							</div>
-						</div>
-						<div class="form-group col-xs-6">
-							<h:inputText type="text" class="form-control" id="Nombres"
-								value="#{clienteController.registro.cliente.nombre}"
-								a:placeholder="Nombres" />
-						</div>
-						<div class="form-group col-xs-6">
-							<h:inputText type="text" class="form-control"
-								id="DireccionPrincipal"
-								value="#{clienteController.registro.cliente.direccionPrincipal}"
-								a:placeholder="Direccion Principal" />
-						</div>
-						<div class="form-group col-xs-6">
-							<h:inputText type="text" class="form-control"
-								id="DireccionSecundaria"
-								value="#{clienteController.registro.cliente.direccionSecundaria}"
-								a:placeholder="Direccion Secundaria" />
-						</div>
-						<div class="form-group col-xs-6">
-							<h:inputText type="text" class="form-control"
-								id="DireccionReferencia"
-								value="#{clienteController.registro.cliente.direccionSecundaria}"
-								a:placeholder="ID AG" />
-						</div>
-						<div class="form-group col-xs-6">
-							<h:inputText type="text" class="form-control" id="Latitud"
-								value="#{clienteController.registro.cliente.latitud}"
-								a:placeholder="Latitud" />
-						</div>
-						<div class="form-group col-xs-6">
-							<h:inputText type="text" class="form-control" id="Longitud"
-								value="#{clienteController.registro.cliente.longitud}"
-								a:placeholder="Longitud" />
-						</div>
-
-					</div>
-					<div class="form-group">
-						<label>Observaciones</label>
-						<h:inputTextarea
-							value="#{clienteController.registro.observaciones}"
-							class="form-control" id="exampleFormControlTextarea1" rows="5" />
-					</div>
-
-				</div>
-			</div>
+			<h2>Ingrese Un Tecnico</h2>
 		</div>
 		<div class="form-group col-sm-6">
 			  <label for="sel1" class="etiquetas">Tecnicos:</label>   
 
-			
-        <p:selectOneMenu id="tecnico" value="#{clienteController.tecnicoElegido}">
-            <f:selectItem itemLabel="Select One" itemValue="3" />
+        <h:selectOneMenu id="tecnico" value="#{clienteController.tecnicoElegido}">
+            <f:selectItem   />
             <f:selectItems value="#{clienteController.tecnicos}" />
-        </p:selectOneMenu>
-			  
-			<!-- 					<h:selectOneMenu class="form-control" id="sel1" -->
-			<!-- 						value="#{clienteController.registro.empleado}"> -->
-			<!-- 						<f:selectItems value="#{clienteController.tecnicos}" var="pro1" -->
-			<!-- 							itemLabel="#{pro1.nombre}" itemValue="#{pro1.id}" /> -->
-			<!-- 							<f:selectItems value="#{pro1.id}"/> -->
-			<!-- 					</h:selectOneMenu> -->
+        </h:selectOneMenu>
+
 		</div>
 		<div class="btnsIngre_Agen">
 			<h:commandButton action="#{clienteController.ingresaVisita()}"

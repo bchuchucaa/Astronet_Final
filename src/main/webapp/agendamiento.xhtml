@@ -61,7 +61,7 @@
 
 	<h:form>
 		<div class="centerTexto">
-			<h2>REVISION DE RECLAMOS</h2>
+			<h2>AGENDAMIENTO</h2>
 		</div>
 		<div class="container margenCaja">
 
@@ -144,7 +144,7 @@
 				</h:selectOneMenu>
 			</div>
 			<div class="btnsIngre_Agen">
-				<h:commandButton action="#{clienteController.guardarAgendamiento()}"
+				<h:commandButton action="#{clienteController.guardarAgendamiento(clienteController.registro.empleado.id)}"
 					class="btn btn-primary btnIn" value="Ingresar" />
 			</div>
 		</div>

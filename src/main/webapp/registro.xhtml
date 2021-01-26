@@ -85,7 +85,7 @@
 
 	<div style="height: 50px"></div>
 	<div class="centerTexto">
-		<h2>REPORTES DE INGRESOS</h2>
+		<h2>REVISION DE INGRESOS</h2>
 	</div>
 
 	<!--Ejemplo tabla con DataTables-->
@@ -98,9 +98,20 @@
 						width="100%" style="text-align:center;"
 						value="#{clienteController.registros}" var="registro" border="1">
 						<h:column>
+							<f:facet name="header" data-field="salary" data-sortable="true">ID</f:facet>
+												#{registro.id}
+											</h:column>
+
+
+						<h:column>
 							<f:facet name="header" data-field="salary" data-sortable="true">Nombres</f:facet>
 												#{registro.cliente.nombre}
 											</h:column>
+						<h:column>
+							<f:facet name="header" data-field="salary" data-sortable="true">Apellidos</f:facet>
+												#{registro.cliente.apellidos}
+											</h:column>
+
 
 						<h:column>
 							<f:facet name="header" data-field="country" data-sortable="true">Direccion</f:facet>
@@ -165,7 +176,6 @@
 							<h:column>
 								<h:form>
 								
-
 									<h:button class="btn btn-primary btnIn"
 										outcome="agendamiento"							
 										value="Revisar">

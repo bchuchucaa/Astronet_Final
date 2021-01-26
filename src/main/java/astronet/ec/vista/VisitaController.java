@@ -14,11 +14,13 @@ import astronet.ec.modelo.Cliente;
 import astronet.ec.modelo.Empleado;
 import astronet.ec.modelo.Equipo;
 import astronet.ec.modelo.Registro;
+import astronet.ec.modelo.Telefono;
 import astronet.ec.modelo.Visita;
 import astronet.ec.on.ClienteON;
 import astronet.ec.on.EmpleadoON;
 import astronet.ec.on.EquipoOn;
 import astronet.ec.on.RegistroON;
+import astronet.ec.on.TelefonoON;
 import astronet.ec.on.VisitaON;
 
 @ManagedBean
@@ -40,7 +42,8 @@ public class VisitaController implements Serializable{
 	private RegistroON regon;
 	@Inject
 	private VisitaON visitaOn;
-
+	@Inject
+	private TelefonoON telOn;
 
 	private String antenaElegida;
 	private Cliente cliente;
@@ -62,6 +65,18 @@ public class VisitaController implements Serializable{
 
 
 	
+	public TelefonoON getTelOn() {
+		return telOn;
+	}
+
+
+
+	public void setTelOn(TelefonoON telOn) {
+		this.telOn = telOn;
+	}
+
+
+
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -235,6 +250,11 @@ public class VisitaController implements Serializable{
 		System.out.println("cabron"+clientito);
 		return null;
 	}
-	
-	
+
+	public List<Telefono> listaTel(int clientito){
+		Cliente cli =clion.getCliente(clientito);	
+		List<Telefono> telefono= telOn.getTelefonos(cli);
+		System.out.println("wilson gay"+ clientito);
+		return telefono;
+	} 
 }

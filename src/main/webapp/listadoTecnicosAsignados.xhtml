@@ -17,7 +17,7 @@
 	<meta name="viewport"
 		content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-	<title>Reportes</title>
+	<title>Listado Hoja de Ruta</title>
 
 	<link rel="stylesheet"
 		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
@@ -80,7 +80,7 @@
 	
 	<div style="height: 50px"></div>
 	<div class="centerTexto">
-		<h2>Listado de Verificacion</h2>
+		<h2>Listado de Tecnicos Asignados</h2>
 	</div>
 
 	<!--Ejemplo tabla con DataTables-->
@@ -102,10 +102,15 @@
 					
 								#{agendamiento.cliente.nombre}
 						</h:column>
+						<h:column>
+							<f:facet name="header" data-field="country" data-sortable="true">Apellidos Cliente</f:facet>
+					
+								#{agendamiento.cliente.apellidos}
+						</h:column>
 
 
 						<h:column>
-							<f:facet name="header">Coordens</f:facet>
+							<f:facet name="header">Coordenadas</f:facet>
 							<h:column>
 								#{agendamiento.cliente.latitud}
 								
@@ -117,7 +122,7 @@
 						</h:column>
 
 						<h:column>
-							<f:facet name="header">Deoartamento</f:facet>
+							<f:facet name="header">Departamento</f:facet>
 
 							<h:column>
 								#{agendamiento.empleado.departamento}
@@ -127,25 +132,18 @@
 						</h:column>
 
 
-						<h:column>
-							<f:facet name="header">Hora</f:facet>
-
-							<h:column>
-								#{agendamiento.registro.fechaHora}
-							</h:column>
-						</h:column>
 <!-- 						<h:column> -->
 <!-- 						<f:facet name="header">Contactos</f:facet> -->
 <!-- 							<c:forEach var="#{telefono}" -->
-<!-- 								items="${clienteController.cliente.telefonos}"> -->
+<!-- 								items="${visitaController.listaTel(agendamiento.cliente.id)}"> -->
 <!-- 									<h:outputText value="#{telefono.telNumero}" /> -->
 <!-- 							</c:forEach> -->
 <!-- 						</h:column> -->
 
 								<h:column styleClass="columnacontacto">
-													<f:facet name="header" data-sortable="true">Contacto</f:facet>
+													<f:facet name="header" data-sortable="true">Contactos</f:facet>
 													<h:form id="list">
-														<h:dataTable id="kuka" value="#{clienteController.cliente.telefonos}" var="t"
+														<h:dataTable id="kuka" value="#{visitaController.listaTel(agendamiento.cliente.id)}" var="t"
 															headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar"
 															style="width:100%">
 															<h:column>
@@ -156,7 +154,6 @@
 													</h:form>
 												
 												</h:column>						
-						<h:column>
 							<f:facet name="header">Acciones</f:facet>
 							<h:column>
 								<h:form>
@@ -165,7 +162,6 @@
 										value="Cambiar Tecnico" immediate="true" />
 								</h:form>
 							</h:column>
-						</h:column>
 
 
 

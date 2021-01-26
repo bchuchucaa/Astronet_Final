@@ -17,7 +17,7 @@
 	<meta name="viewport"
 		content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-	<title>Reportes</title>
+	<title>Visitas Tecnicas</title>
 
 	<link rel="stylesheet"
 		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
@@ -77,7 +77,7 @@
 	</nav>
 	<div style="height: 50px"></div>
 	<div class="centerTexto">
-		<h2>Listado de Verificacion</h2>
+		<h2>Listado de Visitas Tecnicas</h2>
 	</div>
 
 	<!--Ejemplo tabla con DataTables-->
@@ -140,22 +140,11 @@
 								<h:form>
 									<h:commandButton class="btn btn-primary btnIn"
 										action="#{agendamientoController.visita(registro.id)}"
-										value="Revisar" immediate="true" />
+										value="Ingresa Tecnico" immediate="true" />
 								</h:form>
 							</h:column>
 						</h:column>
-						<h:column>
-							<f:facet name="header">Verificar</f:facet>
-							<h:column>
-								<h:form>
-<!-- 									<c:if test="#{agendamiento.registro.accion!='SOLUCIONADO'}"> -->
-										<h:commandButton class="btn btn-primary btnIn"
-											action="#{clienteController.editarRegistro(registro.id)}"
-											value="Solucionado" rendered="#{agendamiento.registro.accion=='SOLUCIONADO'}" immediate="true" />
-<!-- 									</c:if> -->		
-								</h:form>
-							</h:column>
-						</h:column>
+						
 					</h:dataTable>
 				</div>
 			</div>

@@ -5,11 +5,12 @@
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:h="http://java.sun.com/jsf/html">
 <h:head>
-	<f:metadata>
-		<f:viewParam name="id" value="#{clienteController.idR}"></f:viewParam>			
-		<f:viewParam name="idUser" value="#{empleadoControllerBean.idUser}"></f:viewParam>	
-		<f:viewAction action="#{empleadoControllerBean.init()}" />
-	</f:metadata>
+<f:metadata>
+			<f:viewParam name="id" value="#{clienteController.idR}"></f:viewParam>
+			<f:viewParam name="id2" value="#{empleadito}"></f:viewParam>
+			
+			<f:viewAction action="#{clienteController.datosRegistro()}" />
+		</f:metadata>
 	<title>Crear De Datos</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -30,26 +31,41 @@
 	<nav class="navbar navbar-default">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<!--AL HACER CLIC EN EL LOGO DE LA EMPRESA RETORNAMOS AL MENU INICIAL DEL USUARIO-->
-			<h:form class="navbar-brand">
-				<h:link outcome="viewUser">
-					<h:graphicImage value="resources/assets/img/logo.png" />
-					<f:param name="id" value="#{empleadoControllerBean.idUser}" />
-				</h:link>
-			</h:form>
+			<a class="navbar-brand" href="callcenter.xhtml"><img
+				src="resources/assets/img/logo.png" /></a>
 		</div>
+		<ul class="nav navbar-nav">
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="callcenter.xhtml">Call Center <span
+					class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="registro.xhtml">Registros</a></li>
+					<li><a href="listadoInstalaciones.xhtml">Instalaciones</a></li>
+
+				</ul></li>
+
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#" onclick="acceso()">Clientes<span
+					class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="clientes1.xhtml" id="boton">Clientes</a></li>
+					<li><a href="crearCliente.xhtml" id="boton12">Nuevo
+							Cliente</a></li>
+				</ul></li>
+
+		</ul>
 
 		<ul class="nav navbar-nav navbar-right">
-			<li><a> #{empleadoControllerBean.empUser.nombre}</a></li>
-			<li><a id="dep">
-					#{empleadoControllerBean.empUser.rolEmpleado.nombre}</a></li>
+			<li><a> #{login.empleado.nombre}</a></li>
+			<li><a id="dep"> #{login.empleado.departamento}</a></li>
 			<li><h:form>
-					<a> <h:commandButton class="btnExit"
-							action="#{loginBean.logout()}" value="Exit"
-							image="./resources/assets/img/exit.png" />
+					<a> <h:commandButton class="btnExit" action="#{login.logout()}"
+							value="Exit" image="./resources/assets/img/exit.png" />
 					</a>
 				</h:form></li>
+
 		</ul>
+
 	</div>
 	</nav>
 
@@ -66,26 +82,24 @@
 						</p>
 						<br></br>
 					</div>
-					<div class="form-group col-sm-6">
+				<div class="form-group col-sm-6">
 						  <label for="selA">Soluciones:</label>     
 						<h:selectOneMenu class="form-control" id="selAc"
 							value="#{clienteController.registro.accion}">
-							<f:ajax listener="#{clienteController.fechaHora()}" />
+							<f:ajax  listener="#{clienteController.fechaHora()}" /> 
 							<f:selectItems value="#{clienteController.accion}" var="pro1"
 								itemLabel="#{pro1.carLabel}" itemValue="#{pro1.carLabel}" />
 						</h:selectOneMenu>
 					</div>
-				</div>
-
+					</div>
+        	</div>
+					<h:commandButton
+						action="#{clienteController.cargarDatosRegistro(empleadito)}"
+						class="btn btn-primary btnIn" value="Ingresar" />
+				<h:commandButton action="clientes1" value="Cancelar"
+					class="btn btn-danger" data-dismiss="modal" />
 
 			</div>
-			<h:commandButton action="#{clienteController.cargarDatosRegistro()}"
-				class="btn btn-primary btnIn" value="Ingresar" />
-			>
-			<h:commandButton action="clientes1" value="Cancelar"
-				class="btn btn-danger" data-dismiss="modal" />
-
-		</div>
 	</h:form>
 </body>
 </html>

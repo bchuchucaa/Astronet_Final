@@ -49,6 +49,10 @@ public class Registro implements Serializable {
 	@NotNull
 	private String accion;
 
+	@Column(name = "reg_chequear")
+	private boolean chequeo= false;
+
+
 	/*
 	 * Relacion Registro con Empleado
 	 */
@@ -127,6 +131,17 @@ public class Registro implements Serializable {
 
 	public void setObservaciones(String observaciones) {
 		this.observaciones = observaciones;
+	}
+	
+
+
+
+	public boolean isChequeo() {
+		return chequeo;
+	}
+
+	public void setChequeo(boolean chequeo) {
+		this.chequeo = chequeo;
 	}
 
 	public String getProblema() {
@@ -216,16 +231,11 @@ public class Registro implements Serializable {
 			return false;
 		return true;
 	}
-
 	@Override
 	public String toString() {
 		return "Registro [id=" + id + ", fechaHora=" + fechaHora + ", observaciones=" + observaciones + ", problema="
 				+ problema + ", accion=" + accion  + ", empleado=" + empleado + ", cliente="
 				+ cliente  + "]";
 	}
-
-
-
-	
 
 }

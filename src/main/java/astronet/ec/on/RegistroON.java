@@ -1,5 +1,6 @@
 package astronet.ec.on;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -90,5 +91,18 @@ public List<Registro> SsolucionadosF() {
 	return regdao.solucionados();
 }
 
-
+public List<Registro> Filtrado(int codigo){
+	return regdao.Chequeo(codigo);
+}
+public List<String> problemitas(){
+	List<String> ejemploLista= new ArrayList<String>();
+	ejemploLista.add("SERVICIO INTERMITENTE");
+	ejemploLista.add("SIN SERVICIO");
+	ejemploLista.add("PROBLEMAS EN CAPACIDAD");
+	ejemploLista.add("ROUTER DESCONFIGURADO");
+	ejemploLista.add("SERVICIO LENTO");
+	ejemploLista.add("CORTE DE SERVICIO");	
+	ejemploLista.add("OTROS");	
+	return ejemploLista;
+} 
 }
