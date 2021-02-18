@@ -78,6 +78,14 @@ public class ClienteController implements Serializable {
 
 	private Equipo equipo = new Equipo();
 	private Servicio servicioTmp;
+	public Visita getVisita() {
+		return visita;
+	}
+
+	public void setVisita(Visita visita) {
+		this.visita = visita;
+	}
+
 	private Telefono telefono;
 	private List<Telefono> telefonos;
 	private Telefono nuevoTelefono;
@@ -195,7 +203,7 @@ public class ClienteController implements Serializable {
 		registros = regon.getListadoRegistro();
 		ejemploLista= regon.problemitas();
 		nuevoTelefono = new Telefono();
-
+		visita = new Visita();
 		servicioTmp = new Servicio();
 		servicioEdit = new Servicio();
 		eqServEdit = new EquipoServicio();
@@ -2129,8 +2137,13 @@ public class ClienteController implements Serializable {
 		System.out.println(empleado.getId());
 		System.out.println("Id del cliente" + registro.getCliente().getId());
 		Cliente cli = clion.getCliente(registro.getCliente().getId());
-	     Visita g = new Visita(cli, registro, empleado);
-		visitaOn.guardar(g);
+	     //Visita g = new Visita(cli, registro, empleado);
+	visita.setCliente(cli);
+	visita.setRegistro(registro);
+	visita.setEmpleado(empleado);
+		//visita.setCliente(cli);
+	 visita.setChequeo(false);
+	     visitaOn.guardar(visita);
 		return"listadoVisitaTecnica?faces-redirect=true&id=" + registro.getEmpleado().getId();
 		
 	}
@@ -2212,5 +2225,57 @@ public class ClienteController implements Serializable {
 		return ip;
 	}
 	 
+public String cambiarEstado(int registrito, int id) {
+	System.out.println("este es el id amigo"+registrito);
+	try {
+		Registro re= regon.consultarRegistro(registrito);
+		re.setId(registrito);
+		re.setAccion("SOLUCIONADOF");
+		re.setChequeo(false);
+		
+		Visita vi = visitaOn.consultarVIsita(id);
+		vi.setChequeo(true);		
+		//Visita vi = visitaOn.getListadoVisita();
+		//visita.setChequeo(trueVisita);Visita
+		//Visitaisita v= visitaOn.actualizar(visita);;
+		visitaOn.guardar(vi);
+		regon.guardar(re);
+		init();
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	System.out.println("si hizoooo");
+	//registro.setCliente(cliente);
 	
+	return null;
+	
+}
+	 
+	 /*
+	 * 
+	 * 	public String cargarDatosRegistro(int codigo) {
+		try {
+			System.out.println("Llegando:::::111");
+			cliente.setId(registro.getCliente().getId());
+			registro.getCliente().setId(cliente.getId());
+			System.out.println("cliente id " + cliente.getId());
+			empleado.setId(registro.getEmpleado().getId());
+			registro.getEmpleado().setId(empleado.getId());
+			System.out.println("q selecciono .??"+ registro.getAccion());
+			if (registro.getAccion().equals("SOLUCIONADOF")) {
+				registro.setChequeo(false);				
+			}
+			regon.guardar(registro);
+			System.out.println("imprime esto:   " + registro.getFechaHora());
+			init();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		 return "listadoVerificar?faces-redirect=true&id="+codigo;
+	}
+
+	}
+	 * 
+	 */
 }

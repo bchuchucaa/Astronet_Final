@@ -99,9 +99,6 @@
 					
 								#{registro.cliente.direccionPrincipal}
 						</h:column>
-
-
-
 						<h:column>
 							<f:facet name="header">Coordenadas</f:facet>
 							<h:column>
@@ -119,21 +116,15 @@
 
 							<h:column>
 								#{registro.observaciones}
-								
 							</h:column>
-
 						</h:column>
 						<h:column>
 							<f:facet name="header">Acción</f:facet>
 
 							<h:column>
 								#{registro.accion}
-
 							</h:column>
-
 						</h:column>
-
-
 						<h:column>
 							<f:facet name="header">Acciones</f:facet>
 							<h:column>
@@ -141,7 +132,14 @@
 									<h:commandButton class="btn btn-primary btnIn"
 										action="#{agendamientoController.visita(registro.id)}"
 										value="Ingresa Tecnico" immediate="true" />
-								</h:form>
+								</h:form>						<h:column>
+							<f:facet name="header">Acción</f:facet>
+
+							<h:column>
+								#{registro.accion}
+							</h:column>
+						</h:column>
+								
 							</h:column>
 						</h:column>
 						
@@ -151,6 +149,7 @@
 		</div>
 	</div>
 	<!-- jQuery, Popper.js, Bootstrap JS -->
+	
 	<script src="resources/jquery/jquery-3.3.1.min.js"></script>
 	<script src="resources/popper/popper.min.js"></script>
 	<script src="resources/bootstrap/js/bootstrap.min.js"></script>

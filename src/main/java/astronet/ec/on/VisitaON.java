@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import astronet.ec.dao.VisitaDAO;
+import astronet.ec.modelo.Registro;
 import astronet.ec.modelo.Visita;
 
 @Stateless
@@ -22,6 +23,20 @@ public class VisitaON {
 		VisitaDao.save(Visita);
 		
 	}
+	
+	public Visita consultarVIsita(int codigoVisita) throws Exception {
+	
+	
+	Visita vis= VisitaDao.read(codigoVisita);
+	if(vis==null)
+		throw new Exception("VIsita no existe");
+	
+	return vis;
+}
+	 
+	
+	
+	
 	
 	public void guardarVisita(Visita Visita) {
 		VisitaDao.create(Visita);
@@ -40,4 +55,8 @@ public class VisitaON {
 		this.listadoVisita = VisitaDao.find();
 	}
 
+	public List<Visita> listaVerificada(){
+		return VisitaDao.listarVisitas();
+	}
+	
 }

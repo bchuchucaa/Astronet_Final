@@ -73,6 +73,14 @@
         </h:selectOneMenu>
 
 		</div>
+			<div class="form-group cabecera">
+					<label for="exampleFormControlTextarea1">Observaciones</label>
+					<h:inputTextarea
+						value="#{clienteController.visita.observaciones}"
+						class="form-control" id="exampleFormControlTextarea1" rows="5">
+					</h:inputTextarea>
+				</div>
+		
 		<div class="btnsIngre_Agen">
 			<h:commandButton action="#{clienteController.ingresaVisita()}"
 				class="btn btn-primary btnIn" value="Ingresar" />

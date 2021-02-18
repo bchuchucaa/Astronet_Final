@@ -4,9 +4,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
+import astronet.ec.modelo.Registro;
 import astronet.ec.modelo.Visita;
 
 public class VisitaDAO {
@@ -50,4 +52,17 @@ public class VisitaDAO {
 		return em.createQuery(criteriaQuery).getResultList();
 		
 	}
+
+	public List<Visita> listarVisitas() {
+		
+		//String estado="VISITA TECNICA";
+		boolean veri= false;
+		String jpql = "SELECT vis FROM Visita vis WHERE vis.chequeo = "+veri;
+		Query q = em.createQuery(jpql, Visita.class);
+		//q.setParameter("a", veri);
+		List<Visita> visitas = q.getResultList();
+		return visitas;
+	}
+	
+
 }

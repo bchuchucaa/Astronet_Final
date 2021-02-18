@@ -99,8 +99,5 @@ public List<Registro> solucionados() {
 		List<Registro> registros = q.getResultList();
 		return registros;
 	}
-	
-
-	
 }
 	

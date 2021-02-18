@@ -9,7 +9,7 @@
 
 <h:head>
 
-		<f:metadata>
+	<f:metadata>
 		<f:viewParam name="id" value="#{empleadoControllerBean.idUser}"></f:viewParam>
 		<f:viewAction action="#{empleadoControllerBean.init()}" />
 	</f:metadata>
@@ -50,7 +50,7 @@
 
 </h:head>
 <body>
-	
+
 	<nav class="navbar navbar-default">
 	<div class="container-fluid">
 		<div class="navbar-header">
@@ -76,8 +76,8 @@
 		</ul>
 	</div>
 	</nav>
-	
-	
+
+
 	<div style="height: 50px"></div>
 	<div class="centerTexto">
 		<h2>Listado de Tecnicos Asignados</h2>
@@ -91,7 +91,7 @@
 					<h:dataTable id="example"
 						class="table table-striped table-bordered" cellspacing="0"
 						width="100%" style="text-align:center;"
-						value="#{visitaController.listadoVisitas}" var="agendamiento"
+						value="#{visitaController.listadoVerificado}" var="agendamiento"
 						border="1">
 						<h:column>
 							<f:facet name="header" data-field="salary" data-sortable="true">Tecnico</f:facet>
@@ -121,50 +121,53 @@
 
 						</h:column>
 
+
 						<h:column>
-							<f:facet name="header">Departamento</f:facet>
-
-							<h:column>
-								#{agendamiento.empleado.departamento}
-								
-							</h:column>
-
+							<f:facet name="header" data-field="country" data-sortable="true">Problema a Resolver</f:facet>
+					
+								#{agendamiento.observaciones}
 						</h:column>
 
+						<!-- 						<h:column> -->
+						<!-- 						<f:facet name="header">Contactos</f:facet> -->
+						<!-- 							<c:forEach var="#{telefono}" -->
+						<!-- 								items="${visitaController.listaTel(agendamiento.cliente.id)}"> -->
+						<!-- 									<h:outputText value="#{telefono.telNumero}" /> -->
+						<!-- 							</c:forEach> -->
+						<!-- 						</h:column> -->
 
-<!-- 						<h:column> -->
-<!-- 						<f:facet name="header">Contactos</f:facet> -->
-<!-- 							<c:forEach var="#{telefono}" -->
-<!-- 								items="${visitaController.listaTel(agendamiento.cliente.id)}"> -->
-<!-- 									<h:outputText value="#{telefono.telNumero}" /> -->
-<!-- 							</c:forEach> -->
-<!-- 						</h:column> -->
+						<h:column styleClass="columnacontacto">
+							<f:facet name="header" data-sortable="true">Contactos</f:facet>
+							<h:form id="list">
+								<h:dataTable id="kuka"
+									value="#{visitaController.listaTel(agendamiento.cliente.id)}"
+									var="t" headerClass="cabeceraTabla"
+									rowClasses="filaPar,filaImpar" style="width:100%">
+									<h:column>
+										<span class="glyphicon glyphicon-earphone"></span>
+										<h:outputText value="#{t.telNumero}" size="100" />
+									</h:column>
+								</h:dataTable>
+							</h:form>
 
-								<h:column styleClass="columnacontacto">
-													<f:facet name="header" data-sortable="true">Contactos</f:facet>
-													<h:form id="list">
-														<h:dataTable id="kuka" value="#{visitaController.listaTel(agendamiento.cliente.id)}" var="t"
-															headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar"
-															style="width:100%">
-															<h:column>
-																<span class="glyphicon glyphicon-earphone"></span>
-																<h:outputText value="#{t.telNumero}" size="100" />
-															</h:column>
-														</h:dataTable>
-													</h:form>
-												
-												</h:column>						
-							<f:facet name="header">Acciones</f:facet>
-							<h:column>
-								<h:form>
-									<h:commandButton class="btn btn-primary btnIn"
-										action="#{clienteController.cambioTecnico(agendamiento.id,agendamiento.registro.id,agendamiento.cliente.id)}"
-										value="Cambiar Tecnico" immediate="true" />
-								</h:form>
-							</h:column>
+						</h:column>
+						<h:column>
+							<f:facet name="header">Cambiar Tecnico</f:facet>
 
-
-
+							<h:form>
+								<h:commandButton class="btn btn-primary btnIn"
+									action="#{clienteController.cambioTecnico(agendamiento.id,agendamiento.registro.id,agendamiento.cliente.id)}"
+									value="Cambiar" immediate="true" />
+							</h:form>
+						</h:column>
+						<h:column>
+							<f:facet name="header">Solucionado</f:facet>
+							<h:form>
+								<h:commandButton class="btn btn-primary btnIn"
+									action="#{clienteController.cambiarEstado(agendamiento.registro.id,agendamiento.id)}"
+									value="Solucionado" immediate="true" />
+							</h:form>
+						</h:column>
 					</h:dataTable>
 				</div>
 			</div>

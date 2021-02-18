@@ -48,6 +48,8 @@ public class VisitaController implements Serializable{
 	private String antenaElegida;
 	private Cliente cliente;
 	private List<Visita> listadoVisitas;
+	private List<Visita> listadoVerificado;
+
 	private Empleado empleado = new Empleado();
 	private List<Empleado> tecnicos;
 	private String tecnicoElegido;
@@ -59,12 +61,23 @@ public class VisitaController implements Serializable{
 	listadoVisitas= vison.getListadoVisita();
 	empleados = empon.getListadoEmpleado();
 	tecnicos = empon.getListadoTecnico();
-
-
+	listadoVerificado= vison.listaVerificada();
 	}
 
 
 	
+	public List<Visita> getListadoVerificado() {
+		return listadoVerificado;
+	}
+
+
+
+	public void setListadoVerificado(List<Visita> listadoVerificado) {
+		this.listadoVerificado = listadoVerificado;
+	}
+
+
+
 	public TelefonoON getTelOn() {
 		return telOn;
 	}
